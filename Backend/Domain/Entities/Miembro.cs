@@ -11,12 +11,12 @@ namespace Domain.Entities
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Dni { get; set; }
-        public string Direccion { get; set; }
-        public string Telefono { get; set; }
-        public DateTime FechaNacimiento { get; set; }
-        public string UrlFoto { get; set; }
+        public string? Direccion { get; set; }
+        public string? Telefono { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
+        public string? UrlFoto { get; set; }
 
-        public ICollection<Membresia> Membresias { get; set; }
+        public Membresia Membresia { get; set; }
         public ICollection<Inscripcion> Inscripciones { get; set; }
     }
 }

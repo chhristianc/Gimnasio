@@ -17,6 +17,6 @@ namespace Domain.Entities
 
         public Miembro Miembro { get; set; }
         public TipoMembresia TipoMembresia { get; set; }
-        public Pago Pago { get; set; }
+        public ICollection<Pago> Pagos { get; set; }
     }
 }
