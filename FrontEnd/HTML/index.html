@@ -8,21 +8,22 @@
 </head>
 
 <body>
-  <!-- HEADER -->
+
+  <!-- ================= HEADER ================= -->
   <header class="navbar">
     <div class="menu-container">
       <button class="menu-btn" id="menu-btn">☰</button>
       <div class="logo">CuerpoSano</div>
-      <img src="../img/icon.png" alt="icono" class="menu-icon">  
+      <img src="../img/icon.png" alt="icono" class="menu-icon">
     </div>
     <nav class="nav-links">
       <a href="/clases">Clases</a>
       <a href="/actividades">Actividades</a>
       <a href="contacto.html">Contacto</a>
-    </nav>    
+    </nav>
   </header>
 
-  <!-- SIDEBAR -->
+  <!-- ================= SIDEBAR ================= -->
   <aside id="sidebar" class="sidebar">
     <button class="close-btn" id="close-btn">×</button>
     <ul>
@@ -34,52 +35,225 @@
     </ul>
   </aside>
 
-  <!-- OVERLAY -->
+  <!-- Overlay del sidebar -->
   <div id="overlay" class="overlay"></div>
 
-  <!-- HERO -->
-  <section class="fondo">
-    <div class="content_frase">
-      <h1>Entrena tu cuerpo, fortalece tu mente</h1>
+  <!-- ================= HERO SLIDER ================= -->
+  <section class="hero-slider">
+    <div class="hero-slide active" style="background-image: url('../img/fondo_1.jpg');">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Entrena tu cuerpo, fortalece tu mente</h1>
+        <p>Superá tus límites cada día</p>
+      </div>
+    </div>
+
+    <div class="hero-slide" style="background-image: url('../img/fondo_2.jpg');">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Entrena con expertos</h1>
+        <p>Nuestros entrenadores certificados te guiarán en cada paso</p>
+      </div>
+    </div>
+
+    <div class="hero-slide" style="background-image: url('../img/fondo_3.jpg');">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h1>Tu bienestar es nuestra meta</h1>
+        <p>Un cuerpo sano comienza con una mente fuerte</p>
+      </div>
     </div>
   </section>
 
-  <!-- CLASES -->
+  <!-- ================= SECCIÓN ESTADÍSTICAS ================= -->
+  <section class="stats">
+    <h2>Números que Hablan</h2>
+    <p>Nuestra comunidad crece cada día y nuestros resultados lo demuestran</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="circle"></span>
+        <h3>2,500+</h3>
+        <p>Miembros Activos</p>
+      </div>
+      <div class="stat-card">
+        <span class="circle"></span>
+        <h3>25</h3>
+        <p>Entrenadores Certificados</p>
+      </div>
+      <div class="stat-card">
+        <span class="circle"></span>
+        <h3>100%</h3>
+        <p>Clientes Satisfechos</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN ENTRENADORES ================= -->
+  <section class="trainers">
+    <h2>Nuestros Entrenadores</h2>
+    <p>Conoce a nuestro equipo de profesionales certificados</p>
+
+    <div class="trainer-cards">
+      <div class="trainer-card">
+        <div class="trainer-photo"></div>
+        <h3>Roberto Silva</h3>
+        <p>Musculación</p>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-photo"></div>
+        <h3>Lucía Gómez</h3>
+        <p>CrossFit</p>
+      </div>
+      <div class="trainer-card">
+        <div class="trainer-photo"></div>
+        <h3>Martín López</h3>
+        <p>Zumba</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SECCIÓN CLASES ================= -->
   <section class="class">
     <div class="container_Class">
-      <h1>Nuestras Clases</h1>
+      <h2>Nuestras Clases Más Populares</h2>
+      <p>Descubre la variedad de clases que ofrecemos para todos los niveles</p>
     </div>
+
     <div class="cards-container" id="clases-container">
-      <!-- Aquí se insertan dinámicamente las clases -->
+      <div class="card">
+        <img src="../img/clase_crossfit.jpg" alt="Crossfit">
+        <div class="card-content">
+          <h3>Crossfit Intenso</h3>
+          <p>Entrenamiento funcional de alta intensidad.</p>
+          <small>Mié, Vie - 19:30 hs</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/clase_zumba.jpg" alt="Zumba">
+        <div class="card-content">
+          <h3>Zumba</h3>
+          <p>Baile fitness lleno de energía y diversión.</p>
+          <small>Lun, Mié - 11:00 hs</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/clase_yoga.jpg" alt="Yoga">
+        <div class="card-content">
+          <h3>Yoga Flow</h3>
+          <p>Secuencias fluidas para flexibilidad y relajación.</p>
+          <small>Mar, Jue - 18:00 hs</small>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ACTIVIDADES -->
+  <!-- ================= SECCIÓN ACTIVIDADES ================= -->
   <section class="Act">
     <div class="container_Act">
-      <h1>Nuestras Actividades</h1>
+      <h2>Actividades Especiales</h2>
+      <p>Participa en nuestros eventos y talleres exclusivos</p>
     </div>
+
     <div class="cards-container" id="actividades-container">
-      <!-- Aquí se insertan dinámicamente las actividades -->
+      <div class="card">
+        <img src="../img/actividad_maraton.jpg" alt="Maratón">
+        <div class="card-content">
+          <h3>Maratón Saludable</h3>
+          <p>Carrera anual por la salud y el bienestar.</p>
+          <small>📅 Domingo 20 de octubre - 9:00 hs</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/actividad_taller_nutricion.jpg" alt="Taller de Nutrición">
+        <div class="card-content">
+          <h3>Taller de Nutrición</h3>
+          <p>Aprende a mejorar tu dieta y rendimiento físico.</p>
+          <small>📅 Sábado 12 de octubre - 15:00 hs</small>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="../img/actividad_yoga_playa.jpg" alt="Yoga en la playa">
+        <div class="card-content">
+          <h3>Yoga al aire libre</h3>
+          <p>Una experiencia única de conexión y relajación.</p>
+          <small>📅 Miércoles 9 de octubre - 8:30 hs</small>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- ================= SECCIÓN PLANES ================= -->
+  <section class="plans">
+    <h2>Elige Tu Plan Perfecto</h2>
+    <p>Tenemos el plan ideal para cada objetivo y presupuesto</p>
+
+    <div class="plans-grid">
+      <div class="plan-card">
+        <span class="circle"></span>
+        <h3>Básico</h3>
+        <p>Perfecto para comenzar tu transformación fitness</p>
+        <span class="price">$29 /mes</span>
+        <ul>
+          <li>Acceso al gimnasio</li>
+          <li>Área de cardio</li>
+          <li>Área de pesas</li>
+        </ul>
+      </div>
+
+      <div class="plan-card popular">
+        <span class="circle"></span>
+        <h4 class="tag">Más Popular</h4>
+        <h3>Pro</h3>
+        <p>El plan más popular con acceso completo</p>
+        <span class="price">$59 /mes</span>
+        <ul>
+          <li>Acceso al gimnasio</li>
+          <li>Clases grupales</li>
+          <li>Área de pesas</li>
+          <li>Cardio + Zumba</li>
+        </ul>
+      </div>
+
+      <div class="plan-card premium">
+        <span class="circle"></span>
+        <h4 class="tag">Premium</h4>
+        <h3>Premium</h3>
+        <p>La experiencia premium completa</p>
+        <span class="price">$99 /mes</span>
+        <ul>
+          <li>Acceso total</li>
+          <li>Entrenador personal</li>
+          <li>Evaluaciones físicas</li>
+          <li>Nutricionista</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
   <footer>
     <div class="footer-container">
-        <div class="footer-left">
-            <img src="../img/logo-unaj-2016-01.jpg" alt="icono UNAJ" class="unaj-icon">
-        </div>
-        <div class="footer-center">
-            <h2>Ingeniería de Software I - UNAJ</h2>
-        </div>
-        <div class="footer-right">
-            <h2>CuerpoSano</h2>
-        </div>
+      <div class="footer-left">
+        <img src="../img/logo-unaj-2016-01.jpg" alt="icono UNAJ" class="unaj-icon">
+      </div>
+      <div class="footer-center">
+        <h2>Ingeniería de Software I - UNAJ</h2>
+      </div>
+      <div class="footer-right">
+        <h2>CuerpoSano</h2>
+      </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2025 CuerpoSano. Todos los derechos reservados.</p>
+      <p>© 2025 CuerpoSano. Todos los derechos reservados.</p>
     </div>
   </footer>
+
+  <!-- ================= SCRIPT ================= -->
+  <script src="../JS/index.js"></script>
 </body>
-<!-- SCRIPT -->
-<script src="../JS/index.js"></script>
 </html>

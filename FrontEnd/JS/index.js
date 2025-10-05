@@ -22,3 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.remove("active");
   });
 });
+
+// SLIDER AUTOMÁTICO HERO
+let slides = document.querySelectorAll(".hero-slide");
+let currentSlide = 0;
+
+function changeSlide() {
+  slides[currentSlide].classList.remove("active");
+  currentSlide = (currentSlide + 1) % slides.length;
+  slides[currentSlide].classList.add("active");
+}
+
+setInterval(changeSlide, 6000); // cambia cada 6 segundos
