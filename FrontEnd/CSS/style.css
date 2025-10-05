@@ -1,5 +1,13 @@
-body {
+/* =========================================================
+   RESET Y CONFIGURACIÓN GENERAL
+========================================================= */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   background-color: #111;
   font-family: 'Segoe UI', sans-serif;
   color: #ffffff;
@@ -7,14 +15,9 @@ body {
   flex-direction: column;
 }
 
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* HEADER */
+/* =========================================================
+   HEADER / NAVBAR
+========================================================= */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -27,22 +30,6 @@ body {
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #facc15; /* amarillo */
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-
-.nav-links a:hover {
   color: #facc15;
 }
 
@@ -65,7 +52,23 @@ body {
   height: 24px;
 }
 
-/* Responsive */
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #facc15;
+}
+
+/* Responsive Navbar */
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -75,11 +78,13 @@ body {
   }
 }
 
-/* SIDEBAR */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 .sidebar {
   position: fixed;
   top: 0;
-  left: -250px; /* escondido */
+  left: -250px;
   width: 250px;
   height: 100%;
   background-color: #111;
@@ -90,9 +95,12 @@ body {
   z-index: 1000;
 }
 
+.sidebar.active {
+  left: 0;
+}
+
 .sidebar ul {
   list-style: none;
-  padding: 0;
   margin-top: 40px;
 }
 
@@ -111,10 +119,6 @@ body {
   color: #facc15;
 }
 
-.sidebar.active {
-  left: 0; /* se despliega */
-}
-
 .close-btn {
   background: none;
   border: none;
@@ -126,7 +130,9 @@ body {
   right: 10px;
 }
 
-/* OVERLAY */
+/* =========================================================
+   OVERLAY
+========================================================= */
 .overlay {
   position: fixed;
   top: 0;
@@ -142,65 +148,209 @@ body {
   display: block;
 }
 
-/* HERO */
-.fondo {
-  height: 80vh;
-  background: url("../img/fondo_1.jpg") no-repeat center center/cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+/* =========================================================
+   HERO (SLIDER PRINCIPAL)
+========================================================= */
+.hero-slider {
   position: relative;
-  color: #facc15;
+  height: 90vh;
+  overflow: hidden;
 }
 
-.fondo::after {
-  content: "";
+.hero-slide {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
 }
 
-.content_frase {
-  position: relative;
+.hero-slide.active {
+  opacity: 1;
   z-index: 1;
 }
 
-.fondo h1 {
-  font-size: 2.5rem;
-  max-width: 800px;
-  padding: 20px;
-  border-radius: 10px;
+.hero-slide .overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
 }
 
-/* SECCIONES */
-.container_Class,
-.container_Act {
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #facc15;
+  text-shadow: 0 0 15px rgba(0,0,0,0.7);
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #f5f5f5;
+  text-shadow: 0 0 8px rgba(0,0,0,0.6);
+}
+
+/* Responsive Hero */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* =========================================================
+   SECCIÓN ESTADÍSTICAS
+========================================================= */
+.stats {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #111;
+}
+
+.stats h2 {
+  color: #facc15;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.stats p {
+  color: #ccc;
+  margin-bottom: 40px;
+}
+
+.stats-grid {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 40px 0 10px;
+  flex-wrap: wrap;
+  gap: 25px;
 }
 
-.class h1,
-.Act h1 {
-  font-size: 2.5rem;
+.stat-card {
+  background-color: #1e293b;
   border-radius: 10px;
-  color: #facc15;
+  padding: 25px;
+  width: 200px;
+  text-align: center;
+  transition: transform 0.3s;
 }
 
-/* CARDS */
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card .circle {
+  width: 35px;
+  height: 35px;
+  background-color: #facc15;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+
+.stat-card h3 {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.stat-card p {
+  color: #bbb;
+}
+
+/* =========================================================
+   SECCIÓN ENTRENADORES
+========================================================= */
+.trainers {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #0e0e0e;
+}
+
+.trainers h2 {
+  color: #facc15;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.trainers p {
+  color: #ccc;
+  margin-bottom: 40px;
+}
+
+.trainer-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.trainer-card {
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 30px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s;
+}
+
+.trainer-card:hover {
+  transform: translateY(-5px);
+}
+
+.trainer-photo {
+  width: 100px;
+  height: 100px;
+  background-color: #333;
+  border-radius: 50%;
+  border: 4px solid #facc15;
+  margin: 0 auto 15px;
+}
+
+/* =========================================================
+   SECCIONES CLASES Y ACTIVIDADES
+========================================================= */
+.class, .Act {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #111;
+}
+
+.container_Class h2,
+.container_Act h2 {
+  color: #facc15;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.container_Class p,
+.container_Act p {
+  color: #ccc;
+  margin-bottom: 40px;
+}
+
 .cards-container {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  padding: 40px;
   flex-wrap: wrap;
+  gap: 25px;
+  padding: 40px; 
 }
 
 .card {
-  background-color: #1e293b; /* fondo oscuro */
+  background-color: #1e293b;
   border-radius: 10px;
   overflow: hidden;
   width: 300px;
@@ -223,13 +373,14 @@ body {
 }
 
 .card-content h3 {
+  color: #facc15;
   margin-bottom: 10px;
   font-size: 1.2rem;
-  color: #facc15;
 }
 
 .card-content p {
   font-size: 0.9rem;
+  color: #ccc;
   margin-bottom: 10px;
 }
 
@@ -238,6 +389,95 @@ body {
   opacity: 0.8;
 }
 
+/* =========================================================
+   SECCIÓN PLANES
+========================================================= */
+.plans {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: #111;
+}
+
+.plans h2 {
+  color: #facc15;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.plans p {
+  color: #ccc;
+  margin-bottom: 40px;
+}
+
+.plans-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.plan-card {
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 30px;
+  width: 260px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+}
+
+.plan-card .circle {
+  width: 35px;
+  height: 35px;
+  background-color: #facc15;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+}
+
+.plan-card h3 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.plan-card p {
+  color: #bbb;
+  margin-bottom: 15px;
+}
+
+.plan-card .price {
+  color: #facc15;
+  font-size: 1.6rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.plan-card ul {
+  list-style: none;
+  color: #ccc;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #facc15;
+  color: #111;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
 footer {
   background-color: #111;
   color: white;
@@ -259,7 +499,7 @@ footer {
 }
 
 .footer-right h2 {
-  color: #facc15; 
+  color: #facc15;
   text-align: center;
   font-size: 1.5rem;
 }
@@ -271,47 +511,62 @@ footer {
   opacity: 0.8;
 }
 
-/* CONTACTOS */
-.contacts {
-  padding: 60px 20px;
-  background-color: #111;
-  color: white;
-  text-align: center;
+/* =========================================================
+   ANIMACIONES / TRANSICIONES
+========================================================= */
+section {
+  scroll-margin-top: 80px;
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
 }
 
-.contacts h1 {
+/* ========================================================= 
+    CONTACTOS
+========================================================= */ 
+.contacts { 
+  padding: 60px 20px; 
+  background-color: #111; 
+  color: white; 
+  text-align: center; 
+} 
+
+.contacts h1 { 
   color: #facc15;
-  margin-bottom: 40px;
+  margin-bottom: 40px; 
+} 
+
+.contact-card { 
+  background-color: #1e293b; 
+  border-radius: 10px; 
+  width: 250px; 
+  padding: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  transition: transform 0.3s; 
+} 
+
+.contact-card:hover { 
+  transform: translateY(-5px); 
+} 
+
+.contact-card h3 { 
+  color: #facc15; 
+  margin-bottom: 10px; 
+  font-size: 1rem; 
+} 
+
+.contact-card p { 
+  margin: 5px 0; 
+  font-size: 0.8rem; 
+  color: #ddd; 
 }
 
-.cards-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
 
-.contact-card {
-  background-color: #1e293b;
-  border-radius: 10px;
-  width: 250px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s;
-}
-
-.contact-card:hover {
-  transform: translateY(-5px);
-}
-
-.contact-card h3 {
-  color: #facc15;
-  margin-bottom: 10px;
-  font-size: 1.0rem;
-}
-
-.contact-card p {
-  margin: 5px 0;
-  font-size: 0.8rem;
-  color: #ddd;
+.circle {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: #facc15 !important;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  position: relative;
+  z-index: 2;
 }
