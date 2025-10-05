@@ -270,3 +270,48 @@ footer {
   font-size: 0.9rem;
   opacity: 0.8;
 }
+
+/* CONTACTOS */
+.contacts {
+  padding: 60px 20px;
+  background-color: #111;
+  color: white;
+  text-align: center;
+}
+
+.contacts h1 {
+  color: #facc15;
+  margin-bottom: 40px;
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.contact-card {
+  background-color: #1e293b;
+  border-radius: 10px;
+  width: 250px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-card h3 {
+  color: #facc15;
+  margin-bottom: 10px;
+  font-size: 1.0rem;
+}
+
+.contact-card p {
+  margin: 5px 0;
+  font-size: 0.8rem;
+  color: #ddd;
+}
