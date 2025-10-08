@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CuerpoSano</title>
-  <link rel="stylesheet" href="../CSS/style.css">
+  <link rel="stylesheet" href="../HTML/CSS/style.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <div class="menu-container">
       <button class="menu-btn" id="menu-btn">☰</button>
       <div class="logo">CuerpoSano</div>
-      <img src="../img/icon.png" alt="icono" class="menu-icon">
+      <img src="../ASSETS/img/icon.png" alt="icono" class="menu-icon">
     </div>
     <nav class="nav-links">
       <a href="/clases">Clases</a>
@@ -27,12 +27,13 @@
   <aside id="sidebar" class="sidebar">
     <button class="close-btn" id="close-btn">×</button>
     <ul>
-      <li><a href="/clases">Clases Populares</a></li>
-      <li><a href="/actividades">Actividades Destacadas</a></li>
-      <li><a href="/horarios">Horarios</a></li>
-      <li><a href="/entrenadores">Entrenadores</a></li>
-      <li><a href="/reportes">Reportes</a></li>
-    </ul>
+      <li><a href="clases.html">Clases</a></li>
+      <li><a href="actividades.html">Actividades</a></li>
+      <li><a href="Entrenadores.html">Entrenadores</a></li>
+      <li><a href="miembro.html">Miembros</a></li>
+      <li><a href="membresias.html">Membresias</a></li>
+      <li><a href="../REACT/pagos.jsx">Pagos</a></li>
+      <li><a href="../REACT/reportes.jsx">Reportes</a></li>
   </aside>
 
   <!-- Overlay del sidebar -->
@@ -40,7 +41,7 @@
 
   <!-- ================= HERO SLIDER ================= -->
   <section class="hero-slider">
-    <div class="hero-slide active" style="background-image: url('../img/fondo_1.jpg');">
+    <div class="hero-slide active" style="background-image: url('../ASSETS/img/fondo_1.jpg');">
       <div class="overlay"></div>
       <div class="hero-content">
         <h1>Entrena tu cuerpo, fortalece tu mente</h1>
@@ -48,7 +49,7 @@
       </div>
     </div>
 
-    <div class="hero-slide" style="background-image: url('../img/fondo_2.jpg');">
+    <div class="hero-slide" style="background-image: url('../ASSETS/img/fondo_2.jpg');">
       <div class="overlay"></div>
       <div class="hero-content">
         <h1>Entrena con expertos</h1>
@@ -56,7 +57,7 @@
       </div>
     </div>
 
-    <div class="hero-slide" style="background-image: url('../img/fondo_3.jpg');">
+    <div class="hero-slide" style="background-image: url('../ASSETS/img/fondo_3.jpg');">
       <div class="overlay"></div>
       <div class="hero-content">
         <h1>Tu bienestar es nuestra meta</h1>
@@ -122,7 +123,7 @@
 
     <div class="cards-container" id="clases-container">
       <div class="card">
-        <img src="../img/clase_crossfit.jpg" alt="Crossfit">
+        <img src="../ASSETS/img/clase_crossfit.jpg" alt="Crossfit">
         <div class="card-content">
           <h3>Crossfit Intenso</h3>
           <p>Entrenamiento funcional de alta intensidad.</p>
@@ -131,7 +132,7 @@
       </div>
 
       <div class="card">
-        <img src="../img/clase_zumba.jpg" alt="Zumba">
+        <img src="../ASSETS/img/clase_zumba.jpg" alt="Zumba">
         <div class="card-content">
           <h3>Zumba</h3>
           <p>Baile fitness lleno de energía y diversión.</p>
@@ -140,7 +141,7 @@
       </div>
 
       <div class="card">
-        <img src="../img/clase_yoga.jpg" alt="Yoga">
+        <img src="../ASSETS/img/clase_yoga.jpg" alt="Yoga">
         <div class="card-content">
           <h3>Yoga Flow</h3>
           <p>Secuencias fluidas para flexibilidad y relajación.</p>
@@ -159,7 +160,7 @@
 
     <div class="cards-container" id="actividades-container">
       <div class="card">
-        <img src="../img/actividad_maraton.jpg" alt="Maratón">
+        <img src="../ASSETS/img/actividad_maraton.jpg" alt="Maratón">
         <div class="card-content">
           <h3>Maratón Saludable</h3>
           <p>Carrera anual por la salud y el bienestar.</p>
@@ -168,7 +169,7 @@
       </div>
 
       <div class="card">
-        <img src="../img/actividad_taller_nutricion.jpg" alt="Taller de Nutrición">
+        <img src="../ASSETS/img/actividad_taller_nutricion.jpg" alt="Taller de Nutrición">
         <div class="card-content">
           <h3>Taller de Nutrición</h3>
           <p>Aprende a mejorar tu dieta y rendimiento físico.</p>
@@ -177,7 +178,7 @@
       </div>
 
       <div class="card">
-        <img src="../img/actividad_yoga_playa.jpg" alt="Yoga en la playa">
+        <img src="../ASSETS/img/actividad_yoga_playa.jpg" alt="Yoga en la playa">
         <div class="card-content">
           <h3>Yoga al aire libre</h3>
           <p>Una experiencia única de conexión y relajación.</p>
@@ -239,7 +240,7 @@
   <footer>
     <div class="footer-container">
       <div class="footer-left">
-        <img src="../img/logo-unaj-2016-01.jpg" alt="icono UNAJ" class="unaj-icon">
+        <img src="../ASSETS/img/logo-unaj-2016-01.jpg" alt="icono UNAJ" class="unaj-icon">
       </div>
       <div class="footer-center">
         <h2>Ingeniería de Software I - UNAJ</h2>
@@ -254,6 +255,6 @@
   </footer>
 
   <!-- ================= SCRIPT ================= -->
-  <script src="../JS/index.js"></script>
+  <script src="../HTML/JS/index.js"></script>
 </body>
 </html>

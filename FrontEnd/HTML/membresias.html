@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membresias</title>
+  <link rel="stylesheet" href="../HTML/CSS/style.css">
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="navbar">
+    <div class="menu-container">
+      <button class="menu-btn" id="menu-btn">☰</button>
+      <div class="logo">CuerpoSano</div>
+      <img src="../ASSETS/img/icon.png" alt="icono" class="menu-icon">
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside id="sidebar" class="sidebar">
+    <button class="close-btn" id="close-btn">×</button>
+    <ul>
+      <li><a href="clases.html">Clases</a></li>
+      <li><a href="actividades.html">Actividades</a></li>
+      <li><a href="Entrenadores.html">Entrenadores</a></li>
+      <li><a href="miembro.html">Miembros</a></li>
+      <li><a href="membresias.html">Membresias</a></li>
+      <li><a href="../REACT/pagos.jsx">Pagos</a></li>
+      <li><a href="../REACT/reportes.jsx">Reportes</a></li>
+  </aside>
+
+
+  <main class="main-content">
+
+    <!-- ===== DESCUENTOS ===== -->
+    <section class="gestor">
+      <h1>Gestión de Descuentos</h1>
+
+      <form id="descuentoForm" class="form-gestion">
+        <input type="hidden" id="descuentoId">
+
+        <label>Descripción:</label>
+        <input type="text" id="descripcionDescuento" required placeholder="Ej: Estudiante">
+
+        <label>Porcentaje (%):</label>
+        <input type="number" id="porcentajeDescuento" required placeholder="Ej: 10">
+
+        <div class="btn-group">
+          <button type="submit" class="btn-primary">Guardar Descuento</button>
+          <button type="button" id="cancelarDescuentoBtn" class="btn-secondary">Cancelar</button>
+        </div>
+      </form>
+
+      <h2>Listado de Descuentos</h2>
+      <table id="descuentosTabla" class="tabla-gestion">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Porcentaje</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== TIPOS DE MEMBRESÍA ===== -->
+    <section class="gestor">
+      <h1>Tipos de Membresía</h1>
+
+      <form id="tipoMembresiaForm" class="form-gestion">
+        <input type="hidden" id="tipoMembresiaId">
+
+        <label>Nombre:</label>
+        <input type="text" id="nombreTipo" required placeholder="Ej: Premium">
+
+        <label>Duración (días):</label>
+        <input type="number" id="duracionTipo" required>
+
+        <label>Costo ($):</label>
+        <input type="number" id="costoTipo" required>
+
+        <label>Seleccionar Descuento:</label>
+        <select id="descuentoTipo">
+          <option value="">Sin descuento</option>
+        </select>
+
+        <div class="btn-group">
+          <button type="submit" class="btn-primary">Guardar Tipo</button>
+          <button type="button" id="cancelarTipoBtn" class="btn-secondary">Cancelar</button>
+        </div>
+      </form>
+
+      <h2>Listado de Tipos de Membresía</h2>
+      <table id="tiposMembresiaTabla" class="tabla-gestion">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Duración</th>
+            <th>Costo</th>
+            <th>Descuento Asociado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ===== MEMBRESÍAS ACTIVAS ===== -->
+    <section class="gestor">
+      <h1>Membresías Activas</h1>
+
+      <form id="membresiaForm" class="form-gestion">
+        <input type="hidden" id="membresiaId">
+
+        <label>Miembro:</label>
+        <select id="miembro" required>
+          <option value="">Seleccionar miembro</option>
+        </select>
+
+        <label>Tipo de Membresía:</label>
+        <select id="tipoMembresia" required>
+          <option value="">Seleccionar tipo</option>
+        </select>
+
+        <label>Fecha de Inicio:</label>
+        <input type="date" id="fechaInicio" required>
+
+        <label>Fecha de Fin:</label>
+        <input type="date" id="fechaFin" required>
+
+        <label>Costo Final:</label>
+        <input type="number" id="costoTotal" readonly>
+
+        <label>Estado:</label>
+        <select id="estado">
+          <option value="Activa">Activa</option>
+          <option value="Vencida">Vencida</option>
+          <option value="Cancelada">Cancelada</option>
+        </select>
+
+        <div class="btn-group">
+          <button type="submit" class="btn-primary">Guardar Membresía</button>
+          <button type="button" id="cancelarMembresiaBtn" class="btn-secondary">Cancelar</button>
+        </div>
+      </form>
+
+      <h2>Listado de Membresías</h2>
+      <table id="membresiasTabla" class="tabla-gestion">
+        <thead>
+          <tr>
+            <th>Miembro</th>
+            <th>Tipo</th>
+            <th>Inicio</th>
+            <th>Fin</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-left">
+        <img src="../ASSETS/img/logo-unaj-2016-01.jpg" alt="icono UNAJ" class="unaj-icon">
+      </div>
+      <div class="footer-center">
+        <h2>Ingeniería de Software I - UNAJ</h2>
+      </div>
+      <div class="footer-right">
+        <h2>CuerpoSano</h2>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CuerpoSano. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ================= SCRIPT ================= -->
+  <script src="../html/js/membresias.js"></script>
+  <script src="../HTML/JS/index.js"></script>
+</body>
+</html>
