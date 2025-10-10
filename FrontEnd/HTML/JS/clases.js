@@ -35,8 +35,8 @@ function listarClases() {
         <button onclick="agregarActividad(${c.id})" class="btn-small btn btn-save">+ Actividad</button>
       </td>
       <td>
-        <button onclick="editarClase(${c.id})" class="btn-small btn-edit">Editar</button>
-        <button onclick="eliminarClase(${c.id})" class="btn-small btn-delete">Eliminar</button>
+        <button onclick="editarClase(${c.id})" class="btn-small btn btn-edit"">Editar</button>
+        <button onclick="eliminarClase(${c.id})" class="btn-small btn btn-delete">Eliminar</button>
       </td>
     </tr>
   `).join("");

@@ -47,19 +47,23 @@
       <!-- ===== DESCUENTOS ===== -->
       <section class="gestor">
         <h1>Gestión de Descuentos</h1>
+
         <form id="descuentoForm" class="form-gestion">
           <input type="hidden" id="descuentoId" />
+
           <div class="form-group">
             <label for="descripcionDescuento">Descripción:</label>
             <input type="text" id="descripcionDescuento" required placeholder="Ej: Estudiante" />
           </div>
+
           <div class="form-group">
             <label for="porcentajeDescuento">Porcentaje (%):</label>
             <input type="number" id="porcentajeDescuento" required placeholder="Ej: 10" />
           </div>
+
           <div class="btn-group">
-            <button type="submit" class="btn btn-save">Guardar Descuento</button>
-            <button type="button" id="cancelarDescuentoBtn" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-save">Guardar</button>
+            <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
           </div>
         </form>
 
@@ -78,30 +82,36 @@
 
       <!-- ===== TIPOS DE MEMBRESÍA ===== -->
       <section class="gestor">
-        <h1>Tipos de Membresía</h1>
+        <h1>Gestión de Tipos de Membresía</h1>
+
         <form id="tipoMembresiaForm" class="form-gestion">
           <input type="hidden" id="tipoMembresiaId" />
+
           <div class="form-group">
             <label for="nombreTipo">Nombre:</label>
             <input type="text" id="nombreTipo" required placeholder="Ej: Premium" />
           </div>
+
           <div class="form-group">
             <label for="duracionTipo">Duración (días):</label>
             <input type="number" id="duracionTipo" required />
           </div>
+
           <div class="form-group">
             <label for="costoTipo">Costo ($):</label>
             <input type="number" id="costoTipo" required />
           </div>
+
           <div class="form-group">
             <label for="descuentoTipo">Seleccionar Descuento:</label>
             <select id="descuentoTipo">
               <option value="">Sin descuento</option>
             </select>
           </div>
+
           <div class="btn-group">
-            <button type="submit" class="btn btn-save">Guardar Tipo</button>
-            <button type="button" id="cancelarTipoBtn" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-save">Guardar</button>
+            <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
           </div>
         </form>
 
@@ -117,38 +127,45 @@
             </tr>
           </thead>
           <tbody></tbody>
-        </table>  
+        </table>
       </section>
 
       <!-- ===== MEMBRESÍAS ACTIVAS ===== -->
       <section class="gestor">
         <h1>Membresías Activas</h1>
+
         <form id="membresiaForm" class="form-gestion">
           <input type="hidden" id="membresiaId" />
+
           <div class="form-group">
             <label for="miembro">Miembro:</label>
             <select id="miembro" required>
               <option value="">Seleccionar miembro</option>
             </select>
           </div>
+
           <div class="form-group">
             <label for="tipoMembresia">Tipo de Membresía:</label>
             <select id="tipoMembresia" required>
               <option value="">Seleccionar tipo</option>
             </select>
           </div>
+
           <div class="form-group">
             <label for="fechaInicio">Fecha de Inicio:</label>
             <input type="date" id="fechaInicio" required />
           </div>
+
           <div class="form-group">
             <label for="fechaFin">Fecha de Fin:</label>
             <input type="date" id="fechaFin" required />
           </div>
+
           <div class="form-group">
             <label for="costoTotal">Costo Final:</label>
             <input type="number" id="costoTotal" readonly />
           </div>
+
           <div class="form-group">
             <label for="estado">Estado:</label>
             <select id="estado">
@@ -157,6 +174,7 @@
               <option value="Cancelada">Cancelada</option>
             </select>
           </div>
+          
           <div class="btn-group">
             <button type="submit" class="btn btn-save">Guardar Membresía</button>
             <button type="button" id="cancelarMembresiaBtn" class="btn btn-secondary">Cancelar</button>

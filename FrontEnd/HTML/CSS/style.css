@@ -652,13 +652,20 @@ section {
    ESTILOS DE PÁGINAS DE GESTIÓN (Clases / Actividades)
 ========================================================= */
 
-/* ====== Contenedor principal ====== */
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL DE GESTIÓN
+========================================================= */
+
 .main-content {
   padding: 60px 20px;
   background-color: var(--bg);
-  color: var(--text);
   min-height: 80vh;
 }
+
+/* =========================================================
+   ENCABEZADOS Y TITULOS
+========================================================= */
 
 .gestor h1 {
   text-align: center;
@@ -668,19 +675,23 @@ section {
 }
 
 .gestor h2 {
-  color: var(--highlight);
-  margin: 40px 0 15px;
   text-align: center;
+  color: var(--highlight);
+  font-size: 1.6rem;
+  margin: 40px 0 15px;
 }
 
-/* ====== Formularios ====== */
+/* =========================================================
+   FORMULARIOS DE GESTIÓN
+========================================================= */
+
 .form-gestion {
   background-color: var(--bg-alt);
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 25px 30px;
   max-width: 600px;
   margin: 0 auto;
-  box-shadow: 0 4px 8px var(--card-shadow);
+  box-shadow: 0 4px 10px var(--card-shadow);
 }
 
 .form-gestion label {
@@ -691,12 +702,14 @@ section {
 }
 
 .form-gestion input[type="text"],
+.form-gestion input[type="number"],
+.form-gestion select,
 .form-gestion textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
   border: 1px solid var(--border);
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: var(--bg);
   color: var(--text);
   font-size: 1rem;
@@ -707,134 +720,146 @@ section {
   min-height: 80px;
 }
 
-.btn-group {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 25px;
-}
+/* =========================================================
+   GRUPOS Y SECCIONES DEL CRUD
+========================================================= */
 
-/* ====== Tabla ====== */
-.tabla-gestion {
-  width: 90%;
-  margin: 0 auto;
-  border-collapse: collapse;
-  background-color: var(--bg-alt);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px var(--card-shadow);
-}
-
-.tabla-gestion th,
-.tabla-gestion td {
-  padding: 12px 15px;
-  text-align: left;
-}
-
-.tabla-gestion th {
-  background-color: var(--highlight);
-  color: var(--bg);
-  font-weight: bold;
-  text-align: center;
-}
-
-.tabla-gestion td {
-  border-bottom: 1px solid var(--border);
-  text-align: center;
-}
-
-.tabla-gestion tr:hover {
-  background-color: var(--bg-alt);
-}
-
-/* ====== Botones de acción en la tabla ====== */
-.tabla-gestion button {
-  background-color: var(--highlight);
-  border: none;
-  color: var(--bg);
-  font-weight: bold;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s;
-  margin: 0 3px;
-}
-
-.tabla-gestion button:hover {
-  background-color: var(--highlight-hover);
-}
-
-/* ====== Responsive ====== */
-@media (max-width: 768px) {
-  .tabla-gestion {
-    width: 100%;
-    font-size: 0.9rem;
-  }
-
-  .form-gestion {
-    padding: 20px;
-  }
-
-  .btn-group {
-    flex-direction: column;
-  }
-}
-
-/* ==============================
-   CRUD Actividades
-============================== */
 .main-container {
   padding: 40px;
   text-align: center;
 }
 
-.form-section, .list-section {
-  margin: 40px auto;
+.form-section,
+.list-section {
   background-color: var(--bg-alt);
   padding: 25px;
   border-radius: 10px;
   max-width: 800px;
+  margin: 40px auto;
   color: var(--text);
+  box-shadow: 0 4px 8px var(--card-shadow);
 }
 
 .form-group {
   margin: 15px 0;
+  text-align: left;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   color: var(--highlight);
-  text-align: left;
+  font-weight: 600;
 }
 
-.form-group input {
+.form-group input,
+.form-group select,
+.form-group textarea {
   width: 100%;
   padding: 8px;
-  border-radius: 5px;
-  border: none;
-}
-
-.tabla {
-  width: 100%;
-  border-collapse: collapse;
-  color: var(--text);
-  background-color: var(--bg-alt);
-}
-
-.tabla th, .tabla td {
+  border-radius: 6px;
   border: 1px solid var(--border);
-  padding: 10px;
-  border-color: var(--bg);
-  background-color: var(--border);
-  padding: 10px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 1rem;
 }
 
+/* =========================================================
+   TABLAS DE GESTIÓN
+========================================================= */
+
+.tabla-gestion,
+.tabla {
+  width: 90%;
+  margin: 30px auto;
+  border-collapse: collapse;
+  background-color: var(--bg-alt);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px var(--card-shadow);
+  color: var(--text);
+}
+
+.tabla-gestion th,
 .tabla th {
   background-color: var(--highlight);
   color: var(--bg);
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 15px;
 }
 
+
+.tabla-gestion td,
+.tabla td {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.tabla-gestion tr:hover,
+.tabla tr:hover {
+  background-color: #243147;
+}
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 992px) {
+  .main-content {
+    padding: 40px 15px;
+  }
+
+  .form-gestion {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .tabla-gestion,
+  .tabla {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-container {
+    padding: 20px;
+  }
+
+  .form-section,
+  .list-section {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .tabla-gestion,
+  .tabla {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gestor h1 {
+    font-size: 1.8rem;
+  }
+
+  .gestor h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-gestion,
+  .form-section,
+  .list-section {
+    padding: 15px;
+  }
+
+  .tabla-gestion,
+  .tabla {
+    font-size: 0.85rem;
+  }
+}
 html {
   scroll-behavior: smooth;
 }
