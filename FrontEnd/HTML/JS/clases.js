@@ -32,7 +32,7 @@ function listarClases() {
       <td>${c.descripcion}</td>
       <td>
         ${c.actividades.map(a => `<li>${a.nombre} (${a.duracion})</li>`).join("")}
-        <button onclick="agregarActividad(${c.id})" class="btn-small">+ Actividad</button>
+        <button onclick="agregarActividad(${c.id})" class="btn-small btn btn-save">+ Actividad</button>
       </td>
       <td>
         <button onclick="editarClase(${c.id})" class="btn-small btn-edit">Editar</button>

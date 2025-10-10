@@ -7,18 +7,21 @@
     <link rel="stylesheet" href="../HTML/CSS/style.css"> 
   </head> 
   <body> 
-  <!-- ================= HEADER ================= --> 
-    <header class="navbar"> 
-      <div class="menu-container"> 
-        <button class="menu-btn" id="menu-btn">☰</button> 
-        <div class="logo">CuerpoSano</div> 
-        <img src="../ASSETS/img/icon.png" alt="icono" class="menu-icon"> 
-      </div> 
-      <nav class="nav-links"> 
-        <a href="index.html">Inicio</a> 
-        <a href="contacto.html">Contacto</a> 
-      </nav> 
-    </header> 
+    <!-- ================= HEADER ================= -->
+    <header class="navbar">
+      <div class="menu-container">
+        <button class="menu-btn" id="menu-btn">☰</button>
+        <div class="logo">CuerpoSano</div>
+      </div>
+
+      <!-- Botón sidebar derecho (solo visible en móvil) -->
+      <button class="menu-btn-right" id="menu-btn-right">☰</button>
+      <nav class="nav-links">
+        <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
+        <a href="index.html">Inicio</a>
+        <a href="contacto.html">Contacto</a>
+      </nav>
+    </header>
     <!-- ================= SIDEBAR ================= --> 
     <aside id="sidebar" class="sidebar"> 
       <button class="close-btn" id="close-btn">×</button> 
@@ -36,7 +39,7 @@
     <main class="main-container"> 
         <h1>Gestión de Actividades</h1> 
         <!-- ===== FORMULARIO ===== --> 
-        <section class="form-section"> 
+        <section class="form-gestion"> 
           <h2>Registrar / Editar Actividad</h2> 
           <form id="actividadForm"> 
             <input type="hidden" id="actividadId"> 
@@ -55,25 +58,25 @@
               <label>Hora:</label> 
               <input type="time" id="hora" required> 
             </div> 
-            <button type="submit" class="btn-primary" id="guardarBtn">Guardar</button> 
-            <button type="button" class="btn-secondary" id="cancelarBtn">Cancelar</button> 
+            <button type="submit" class="btn btn-save" id="guardarBtn">Guardar</button> 
+            <button type="button" class="btn btn-secondary" id="cancelarBtn">Cancelar</button> 
           </form> 
         </section> 
         <!-- ===== LISTADO ===== --> 
         <section class="list-section"> 
-          <h2>Listado de Actividades</h2> 
-          <table class="tabla"> 
-            <thead> 
-              <tr> 
-                <th>Nombre</th> 
+          <h2>Listado de Actividades</h2>
+          <table id="actividadesTabla" class="tabla-gestion">
+            <thead>
+              <tr>
+                <th>Nombre</th>
                 <th>Descripción</th> 
                 <th>Fecha</th> 
                 <th>Hora</th> 
-                <th>Acciones</th> 
-              </tr> 
-            </thead> 
-            <tbody id="actividadesTabla"></tbody> 
-          </table> 
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="actividadesTabla"></tbody>
+          </table>
         </section> 
     </main> 
     <!-- ================= FOOTER ================= --> 

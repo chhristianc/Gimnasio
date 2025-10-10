@@ -31,8 +31,8 @@ function renderDescuentos() {
       <td>${d.descripcion}</td>
       <td>${d.porcentaje}%</td>
       <td>
-        <button onclick="editarDescuento('${d.id}')">✏️</button>
-        <button onclick="eliminarDescuento('${d.id}')">🗑️</button>
+        <button class="btn btn-edit" onclick="editarDescuento('${d.id}')">Editar</button>
+        <button class="btn btn-delete" onclick="eliminarDescuento('${d.id}')">Eliminar</button>
       </td>
     `;
     descuentosTabla.appendChild(row);
@@ -110,8 +110,8 @@ function renderTipos() {
       <td>$${t.costo}</td>
       <td>${desc ? desc.descripcion + " (-" + desc.porcentaje + "%)" : "—"}</td>
       <td>
-        <button onclick="editarTipo('${t.id}')">✏️</button>
-        <button onclick="eliminarTipo('${t.id}')">🗑️</button>
+        <button class="btn btn-edit" onclick="editarTipo('${t.id}')">Editar</button>
+        <button class="btn btn-delete" onclick="eliminarTipo('${t.id}')">Eliminar</button>
       </td>
     `;
     tiposTabla.appendChild(row);
@@ -195,8 +195,8 @@ function renderMembresias() {
       <td>${m.fechaFin}</td>
       <td>${m.estado}</td>
       <td>
-        <button onclick="editarMembresia('${m.id}')">✏️</button>
-        <button onclick="eliminarMembresia('${m.id}')">🗑️</button>
+        <button class="btn btn-edit" onclick="editarMembresia('${m.id}')">Editar</button>
+        <button class="btn btn-delete" onclick="eliminarMembresia('${m.id}')">Eliminar</button>
       </td>
     `;
     membresiasTabla.appendChild(row);

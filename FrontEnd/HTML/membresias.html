@@ -13,9 +13,12 @@
       <div class="menu-container">
         <button class="menu-btn" id="menu-btn">☰</button>
         <div class="logo">CuerpoSano</div>
-        <img src="../ASSETS/img/icon.png" alt="icono" class="menu-icon" />
       </div>
+
+      <!-- Botón sidebar derecho (solo visible en móvil) -->
+      <button class="menu-btn-right" id="menu-btn-right">☰</button>
       <nav class="nav-links">
+        <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
         <a href="index.html">Inicio</a>
         <a href="contacto.html">Contacto</a>
       </nav>
@@ -55,8 +58,8 @@
             <input type="number" id="porcentajeDescuento" required placeholder="Ej: 10" />
           </div>
           <div class="btn-group">
-            <button type="submit" class="btn-primary">Guardar Descuento</button>
-            <button type="button" id="cancelarDescuentoBtn" class="btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-save">Guardar Descuento</button>
+            <button type="button" id="cancelarDescuentoBtn" class="btn btn-secondary">Cancelar</button>
           </div>
         </form>
 
@@ -64,7 +67,7 @@
         <table id="descuentosTabla" class="tabla-gestion">
           <thead>
             <tr>
-              <th>Descripción</th>
+              <th>Nombre</th>
               <th>Porcentaje</th>
               <th>Acciones</th>
             </tr>
@@ -97,8 +100,8 @@
             </select>
           </div>
           <div class="btn-group">
-            <button type="submit" class="btn-primary">Guardar Tipo</button>
-            <button type="button" id="cancelarTipoBtn" class="btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-save">Guardar Tipo</button>
+            <button type="button" id="cancelarTipoBtn" class="btn btn-secondary">Cancelar</button>
           </div>
         </form>
 
@@ -114,7 +117,7 @@
             </tr>
           </thead>
           <tbody></tbody>
-        </table>
+        </table>  
       </section>
 
       <!-- ===== MEMBRESÍAS ACTIVAS ===== -->
@@ -155,8 +158,8 @@
             </select>
           </div>
           <div class="btn-group">
-            <button type="submit" class="btn-primary">Guardar Membresía</button>
-            <button type="button" id="cancelarMembresiaBtn" class="btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-save">Guardar Membresía</button>
+            <button type="button" id="cancelarMembresiaBtn" class="btn btn-secondary">Cancelar</button>
           </div>
         </form>
 
