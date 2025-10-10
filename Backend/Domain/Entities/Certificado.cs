@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Clase
+    public class Certificado
     {
         public int Id { get; set; }
-        public int Cupo { get; set; }
-        public int ActividadId { get; set; }
         public int EntrenadorId { get; set; }
+        public string Institucion { get; set; }
+        public DateTime FechaEmision { get; set; }
+        public DateTime FechaVencimiento { get; set; }
 
-        public Actividad Actividad { get; set; }
         public Entrenador Entrenador { get; set; }
-        public ICollection<Horario> Horarios { get; set; }
-        public ICollection<Inscripcion> Inscripciones { get; set; }
     }
 }
