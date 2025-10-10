@@ -7,8 +7,10 @@ let actividades = [
 ];
 
 const form = document.getElementById("actividadForm");
-const tabla = document.getElementById("actividadesTabla");
+const tabla = document.querySelector("#actividadesTabla tbody");
 const cancelarBtn = document.getElementById("cancelarBtn");
+
+
 
 let editando = false;
 let idEditando = null;
@@ -29,8 +31,8 @@ function listarActividades() {
       <td>${a.fecha}</td>
       <td>${a.hora}</td>
       <td>
-        <button onclick="editarActividad(${a.id})" class="btn-small btn-edit">Editar</button>
-        <button onclick="eliminarActividad(${a.id})" class="btn-small btn-delete">Eliminar</button>
+        <button onclick="editarActividad(${a.id})" class="btn-small btn btn-edit">Editar</button>
+        <button onclick="eliminarActividad(${a.id})" class="btn-small btn btn-delete">Eliminar</button>
       </td>
     </tr>
   `).join("");

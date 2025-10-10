@@ -14,11 +14,17 @@
     <div class="menu-container">
       <button class="menu-btn" id="menu-btn">☰</button>
       <div class="logo">CuerpoSano</div>
-      <img src="../ASSETS/img/icon.png" alt="icono" class="menu-icon">
     </div>
+
+     <!-- Botón sidebar derecho (solo visible en móvil) -->
+    <button class="menu-btn-right" id="menu-btn-right">☰</button>
+
     <nav class="nav-links">
-      <a href="/clases">Clases</a>
-      <a href="/actividades">Actividades</a>
+      <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
+      <a href="#entrenadores">Entrenadores</a>
+      <a href="#clases">Clases</a>
+      <a href="#actividades">Actividades</a>
+      <a href="#planes">Planes</a>
       <a href="contacto.html">Contacto</a>
     </nav>
   </header>
@@ -42,15 +48,15 @@
   <!-- ================= HERO SLIDER ================= -->
   <section class="hero-slider">
     <div class="hero-slide active" style="background-image: url('../ASSETS/img/fondo_1.jpg');">
-      <div class="overlay"></div>
+      <div class="overlay active"></div>
       <div class="hero-content">
-        <h1>Entrena tu cuerpo, fortalece tu mente</h1>
+        <h1>Entrena tu cuerpo fortalece tu mente</h1>
         <p>Superá tus límites cada día</p>
       </div>
     </div>
 
     <div class="hero-slide" style="background-image: url('../ASSETS/img/fondo_2.jpg');">
-      <div class="overlay"></div>
+      <div class="overlay active"></div>
       <div class="hero-content">
         <h1>Entrena con expertos</h1>
         <p>Nuestros entrenadores certificados te guiarán en cada paso</p>
@@ -58,7 +64,7 @@
     </div>
 
     <div class="hero-slide" style="background-image: url('../ASSETS/img/fondo_3.jpg');">
-      <div class="overlay"></div>
+      <div class="overlay active"></div>
       <div class="hero-content">
         <h1>Tu bienestar es nuestra meta</h1>
         <p>Un cuerpo sano comienza con una mente fuerte</p>
@@ -91,7 +97,7 @@
   </section>
 
   <!-- ================= SECCIÓN ENTRENADORES ================= -->
-  <section class="trainers">
+  <section class="trainers" id="entrenadores">
     <h2>Nuestros Entrenadores</h2>
     <p>Conoce a nuestro equipo de profesionales certificados</p>
 
@@ -115,7 +121,7 @@
   </section>
 
   <!-- ================= SECCIÓN CLASES ================= -->
-  <section class="class">
+  <section class="class" id="clases">
     <div class="container_Class">
       <h2>Nuestras Clases Más Populares</h2>
       <p>Descubre la variedad de clases que ofrecemos para todos los niveles</p>
@@ -152,7 +158,7 @@
   </section>
 
   <!-- ================= SECCIÓN ACTIVIDADES ================= -->
-  <section class="Act">
+  <section class="Act" id="actividades">
     <div class="container_Act">
       <h2>Actividades Especiales</h2>
       <p>Participa en nuestros eventos y talleres exclusivos</p>
@@ -189,7 +195,7 @@
   </section>
 
   <!-- ================= SECCIÓN PLANES ================= -->
-  <section class="plans">
+  <section class="plans" id="planes">
     <h2>Elige Tu Plan Perfecto</h2>
     <p>Tenemos el plan ideal para cada objetivo y presupuesto</p>
 
@@ -222,7 +228,7 @@
 
       <div class="plan-card premium">
         <span class="circle"></span>
-        <h4 class="tag">Premium</h4>
+        <h4 class="tag-1">Premium</h4>
         <h3>Premium</h3>
         <p>La experiencia premium completa</p>
         <span class="price">$99 /mes</span>
