@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class Inscripcion
+    public class Horario
     {
         public int Id { get; set; }
-        public int MiembroId { get; set; }
         public int ClaseId { get; set; }
-        public DateTime FechaInscripcion { get; set; }
+        public DayOfWeek Dia { get; set; }
+        public TimeSpan HoraInicio { get; set; }
+        public TimeSpan HoraFin { get; set; }
 
-        public Miembro Miembro { get; set; }
         public Clase Clase { get; set; }
     }
 }
