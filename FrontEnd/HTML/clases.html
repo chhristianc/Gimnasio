@@ -15,7 +15,19 @@
         <div class="logo">CuerpoSano</div>
       </div>
 
-         <!-- Botón sidebar derecho (solo visible en móvil) -->
+    <div>
+      <label for="paletaSelect">Elegir paleta de colores:</label>
+      <select id="paletaSelect">
+        <option value="paleta1">Paleta 1</option>
+        <option value="paleta2">Paleta 2</option>
+        <option value="paleta3">Paleta 3</option>
+        <option value="paleta4">Paleta 4</option>
+        <option value="paleta5">Paleta 5</option>
+      </select>
+    </div>
+    
+
+    <!-- Botón sidebar derecho (solo visible en móvil) -->
       <button class="menu-btn-right" id="menu-btn-right">☰</button>
       <nav class="nav-links">
         <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
@@ -48,41 +60,40 @@
         <h1>Gestión de Clases</h1>
 
         <!-- ===== FORMULARIO ===== -->
-        <form id="claseForm" class="form-gestion">
-          <input type="hidden" id="claseId" />
+        <div class="btn-row">
+          <button id="abrirClaseBtn" class="btn btn-save">Nueva Clase</button>
+          <button id="buscarClaseBtn" class="btn btn-save">Buscar Clase</button>
+        </div>
 
-          <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input
-              type="text"
-              id="nombre"
-              required
-              placeholder="Ej: CrossFit Intermedio"
-            />
-          </div>
+        <!-- Modal -->
+        <div id="modalClase" class="modal">
+          <div class="modal-content">
+            <span class="close-modal close-btn">×</span>
+            <form id="claseForm" class="form-gestion">
+              <input type="hidden" id="claseId" />
 
-          <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <textarea
-              id="descripcion"
-              placeholder="Describe la clase..."
-            ></textarea>
-          </div>
+              <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required placeholder="Ej: CrossFit Intermedio"/>
+              </div>
 
-          <div class="form-group">
-            <label for="actividades">Actividades relacionadas:</label>
-            <input
-              type="text"
-              id="actividades"
-              placeholder="Ej: Cardio, Fuerza"
-            />
-          </div>
+              <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" placeholder="Describe la clase..."></textarea>
+              </div>
 
-          <div class="btn-group">
-            <button type="submit" class="btn btn-save">Guardar</button>
-            <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
+              <div class="form-group">
+                <label for="actividades">Actividades relacionadas:</label>
+                <input type="text" id="actividades" placeholder="Ej: Cardio, Fuerza"/>
+              </div>
+
+              <div class="btn-group">
+                <button type="submit" class="btn btn-save">Guardar</button>
+                <button type="button" id="cancelarBtn" class="close-modal btn btn-secondary">Cancelar</button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
 
         <!-- ===== LISTADO ===== -->
         <h2>Listado de Clases</h2>
@@ -124,6 +135,7 @@
 
     <!-- ================= SCRIPTS ================= -->
     <script src="../HTML/JS/index.js"></script>
+    <script src="../HTML/JS/utils.js"></script>
     <script src="../HTML/JS/clases.js"></script>
   </body>
 </html>
