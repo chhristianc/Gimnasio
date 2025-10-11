@@ -15,8 +15,21 @@
         <div class="logo">CuerpoSano</div>
       </div>
 
+      <div>
+        <label for="paletaSelect">Elegir paleta de colores:</label>
+        <select id="paletaSelect">
+          <option value="paleta1">Paleta 1</option>
+          <option value="paleta2">Paleta 2</option>
+          <option value="paleta3">Paleta 3</option>
+          <option value="paleta4">Paleta 4</option>
+          <option value="paleta5">Paleta 5</option>
+        </select>
+      </div>
+    
+
       <!-- Botón sidebar derecho (solo visible en móvil) -->
       <button class="menu-btn-right" id="menu-btn-right">☰</button>
+      
       <nav class="nav-links">
         <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
         <a href="index.html">Inicio</a>
@@ -43,35 +56,18 @@
 
     <!-- ================= CONTENIDO PRINCIPAL ================= -->
     <main class="main-container">
-      
       <!-- ===== DESCUENTOS ===== -->
       <section class="gestor">
         <h1>Gestión de Descuentos</h1>
+        <div class="btn-row">
+          <button id="abrirDescuentoBtn" class="btn btn-save">Nuevo Descuento</button>
+          <button id="buscarDescuentoBtn" class="btn btn-save">Buscar Descuento</button>
+        </div>
 
-        <form id="descuentoForm" class="form-gestion">
-          <input type="hidden" id="descuentoId" />
-
-          <div class="form-group">
-            <label for="descripcionDescuento">Descripción:</label>
-            <input type="text" id="descripcionDescuento" required placeholder="Ej: Estudiante" />
-          </div>
-
-          <div class="form-group">
-            <label for="porcentajeDescuento">Porcentaje (%):</label>
-            <input type="number" id="porcentajeDescuento" required placeholder="Ej: 10" />
-          </div>
-
-          <div class="btn-group">
-            <button type="submit" class="btn btn-save">Guardar</button>
-            <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
-          </div>
-        </form>
-
-        <h2>Listado de Descuentos</h2>
         <table id="descuentosTabla" class="tabla-gestion">
           <thead>
             <tr>
-              <th>Nombre</th>
+              <th>Descripción</th>
               <th>Porcentaje</th>
               <th>Acciones</th>
             </tr>
@@ -83,13 +79,84 @@
       <!-- ===== TIPOS DE MEMBRESÍA ===== -->
       <section class="gestor">
         <h1>Gestión de Tipos de Membresía</h1>
+        <div class="btn-row">
+          <button id="abrirTipoBtn" class="btn btn-save">Nuevo Tipo</button>
+          <button id="buscarTipoBtn" class="btn btn-save">Buscar Tipo</button>
+        </div>
 
-        <form id="tipoMembresiaForm" class="form-gestion">
-          <input type="hidden" id="tipoMembresiaId" />
+        <table id="tiposMembresiaTabla" class="tabla-gestion">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Duración</th>
+              <th>Costo</th>
+              <th>Descuento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- ===== MEMBRESÍAS ===== -->
+      <section class="gestor">
+        <h1>Membresías Activas</h1>
+        <div class="btn-row">
+          <button id="abrirMembresiaBtn" class="btn btn-save">Nueva Membresía</button>
+          <button id="buscarMembresíaBtn" class="btn btn-save">Buscar Membresía</button>
+        </div>
+
+        <table id="membresiasTabla" class="tabla-gestion">
+          <thead>
+            <tr>
+              <th>Miembro</th>
+              <th>Tipo</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <!-- ================= MODALES ================= -->
+    <!-- Modal Descuento -->
+    <div id="modalDescuento" class="modal">
+      <div class="modal-content">
+        <span class="close-modal close-btn">&times;</span>
+        <form id="descuentoForm">
+          <input type="hidden" id="descuentoId" />
+
+          <div class="form-group">
+            <label for="descripcionDescuento">Descripción:</label>
+            <input type="text" id="descripcionDescuento" required />
+          </div>
+
+          <div class="form-group">
+            <label for="porcentajeDescuento">Porcentaje (%):</label>
+            <input type="number" id="porcentajeDescuento" required />
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn btn-save">Guardar</button>
+            <button type="button" class="close-modal btn btn-secondary">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Tipo Membresía -->
+    <div id="modalTipo" class="modal">
+      <div class="modal-content">
+        <span class="close-modal close-btn">&times;</span>
+        <form id="tipoForm">
+          <input type="hidden" id="tipoId" />
 
           <div class="form-group">
             <label for="nombreTipo">Nombre:</label>
-            <input type="text" id="nombreTipo" required placeholder="Ej: Premium" />
+            <input type="text" id="nombreTipo" required />
           </div>
 
           <div class="form-group">
@@ -103,52 +170,33 @@
           </div>
 
           <div class="form-group">
-            <label for="descuentoTipo">Seleccionar Descuento:</label>
-            <select id="descuentoTipo">
-              <option value="">Sin descuento</option>
-            </select>
+            <label for="descuentoTipo">Descuento:</label>
+            <select id="descuentoTipo"><option value="">Sin descuento</option></select>
           </div>
 
           <div class="btn-group">
             <button type="submit" class="btn btn-save">Guardar</button>
-            <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
+            <button type="button" class="close-modal btn btn-secondary">Cancelar</button>
           </div>
         </form>
+      </div>
+    </div>
 
-        <h2>Listado de Tipos de Membresía</h2>
-        <table id="tiposMembresiaTabla" class="tabla-gestion">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Duración</th>
-              <th>Costo</th>
-              <th>Descuento Asociado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
-
-      <!-- ===== MEMBRESÍAS ACTIVAS ===== -->
-      <section class="gestor">
-        <h1>Membresías Activas</h1>
-
-        <form id="membresiaForm" class="form-gestion">
+    <!-- Modal Membresía -->
+    <div id="modalMembresia" class="modal">
+      <div class="modal-content">
+        <span class="close-modal close-btn">&times;</span>
+        <form id="membresiaForm">
           <input type="hidden" id="membresiaId" />
 
           <div class="form-group">
-            <label for="miembro">Miembro:</label>
-            <select id="miembro" required>
-              <option value="">Seleccionar miembro</option>
-            </select>
+            <label for="nombreSocio">Miembro:</label>
+            <input type="text" id="nombreSocio" required />
           </div>
 
           <div class="form-group">
-            <label for="tipoMembresia">Tipo de Membresía:</label>
-            <select id="tipoMembresia" required>
-              <option value="">Seleccionar tipo</option>
-            </select>
+            <label for="tipoMembresia">Tipo:</label>
+            <select id="tipoMembresia"><option value="">Seleccionar tipo</option></select>
           </div>
 
           <div class="form-group">
@@ -161,43 +209,13 @@
             <input type="date" id="fechaFin" required />
           </div>
 
-          <div class="form-group">
-            <label for="costoTotal">Costo Final:</label>
-            <input type="number" id="costoTotal" readonly />
-          </div>
-
-          <div class="form-group">
-            <label for="estado">Estado:</label>
-            <select id="estado">
-              <option value="Activa">Activa</option>
-              <option value="Vencida">Vencida</option>
-              <option value="Cancelada">Cancelada</option>
-            </select>
-          </div>
-          
           <div class="btn-group">
-            <button type="submit" class="btn btn-save">Guardar Membresía</button>
-            <button type="button" id="cancelarMembresiaBtn" class="btn btn-secondary">Cancelar</button>
+            <button type="submit" class="btn btn-save">Guardar</button>
+            <button type="button" class="close-modal btn btn-secondary">Cancelar</button>
           </div>
         </form>
-
-        <h2>Listado de Membresías</h2>
-        <table id="membresiasTabla" class="tabla-gestion">
-          <thead>
-            <tr>
-              <th>Miembro</th>
-              <th>Tipo</th>
-              <th>Inicio</th>
-              <th>Fin</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </section>
-
-    </main>
+      </div>
+    </div>
 
     <!-- ================= FOOTER ================= -->
     <footer>
@@ -219,6 +237,7 @@
 
     <!-- ================= SCRIPTS ================= -->
     <script src="../HTML/JS/index.js"></script>
+    <script src="../HTML/JS/utils.js"></script>
     <script src="../HTML/JS/membresias.js"></script>
   </body>
 </html>

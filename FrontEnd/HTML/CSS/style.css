@@ -16,6 +16,77 @@
   --card-shadow: rgba(0,0,0,0.3);
 }
 
+[data-paleta="paleta1"] {
+  --bg: #0f172a;           
+  --bg-alt: #1e293b;       
+  --text: #e2e8f0;         
+  --text-alt: #94a3b8;     
+  --highlight: #7dd3fc;    
+  --highlight-hover: #38bdf8;
+  --btn-alt: #334155;      
+  --btn-edit: #22c55e;     
+  --btn-delete: #f43f5e;   
+  --border: #334155;       
+  --overlay: rgba(15,23,42,0.7); 
+  --card-shadow: rgba(0,0,0,0.4);
+}
+[data-paleta="paleta2"] {
+  --bg: #1a1a1d;           
+  --bg-alt: #4e4e50;       
+  --text: #f8f1f1;         
+  --text-alt: #d6d6d6;     
+  --highlight: #ff5e5b;    
+  --highlight-hover: #ff7b72;
+  --btn-alt: #6c6c70;      
+  --btn-edit: #ffb400;     
+  --btn-delete: #ff3c38;   
+  --border: #6c6c70;       
+  --overlay: rgba(26,26,29,0.6); 
+  --card-shadow: rgba(0,0,0,0.35);
+}
+[data-paleta="paleta3"] {
+  --bg: #f8f9fa;           
+  --bg-alt: #e9ecef;       
+  --text: #212529;         
+  --text-alt: #495057;     
+  --highlight: #0d6efd;    
+  --highlight-hover: #0b5ed7;
+  --btn-alt: #adb5bd;      
+  --btn-edit: #198754;     
+  --btn-delete: #dc3545;   
+  --border: #ced4da;       
+  --overlay: rgba(33,37,41,0.5); 
+  --card-shadow: rgba(0,0,0,0.15);
+}
+[data-paleta="paleta4"] {
+  --bg: #0f1f13;           
+  --bg-alt: #1a2e20;       
+  --text: #e6f2e6;         
+  --text-alt: #a3bfa3;     
+  --highlight: #a3e635;    
+  --highlight-hover: #84cc16;
+  --btn-alt: #334d3f;      
+  --btn-edit: #4ade80;     
+  --btn-delete: #f87171;   
+  --border: #334d3f;       
+  --overlay: rgba(15,31,19,0.6); 
+  --card-shadow: rgba(0,0,0,0.35);
+}
+[data-paleta="paleta5"] {
+  --bg: #1e0f2f;           
+  --bg-alt: #2a1a40;       
+  --text: #f5f3f7;         
+  --text-alt: #cfc4d8;     
+  --highlight: #f472b6;    
+  --highlight-hover: #ec4899;
+  --btn-alt: #3b1f50;      
+  --btn-edit: #8b5cf6;     
+  --btn-delete: #f43f5e;   
+  --border: #3b1f50;       
+  --overlay: rgba(30,15,47,0.6); 
+  --card-shadow: rgba(0,0,0,0.4);
+}
+
 /* =========================================================
    RESET Y CONFIGURACIÓN GENERAL
 ========================================================= */
@@ -392,9 +463,77 @@ body {
   margin: 0 auto 15px;
 }
 
+
+/* =========================================================
+   MODALES
+========================================================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex; /* 🔥 importante: flex para centrar horizontal y vertical */
+}
+
+.modal-content {
+  background-color: var(--bg-alt);
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 20px var(--card-shadow);
+  width: 90%;
+  max-width: 500px;
+  color: var(--text);
+  position: relative;
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cerrar-modal {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-alt);
+  transition: color 0.3s ease;
+}
+
+.cerrar-modal:hover {
+  color: var(--highlight);
+}
+
+.btn-modal-trigger {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+#overlay {
+  display: none;
+  position: fixed;
+  z-index: 900;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--overlay);
+}
+
 /* =========================================================
    SECCIONES CLASES Y ACTIVIDADES
 ========================================================= */
+
 .class, .Act {
   text-align: center;
   padding: 80px 20px;
@@ -941,4 +1080,12 @@ html {
 .btn-large {
   padding: 12px 24px;
   font-size: 1.05rem;
+}
+
+/* Contenedor del botón alineado*/
+.btn-row {
+  display: flex;
+  justify-content: space-between; /* Uno a la izquierda, otro a la derecha */
+  align-items: center;            /* Alinea verticalmente */
+  margin: 20px 8%;                /* Espacio arriba/abajo y a los costados */
 }

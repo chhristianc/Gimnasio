@@ -14,6 +14,18 @@
         <div class="logo">CuerpoSano</div>
       </div>
 
+      <div>
+        <label for="paletaSelect">Elegir paleta de colores:</label>
+        <select id="paletaSelect">
+          <option value="paleta1">Paleta 1</option>
+          <option value="paleta2">Paleta 2</option>
+          <option value="paleta3">Paleta 3</option>
+          <option value="paleta4">Paleta 4</option>
+          <option value="paleta5">Paleta 5</option>
+        </select>
+      </div>
+    
+
       <!-- Botón sidebar derecho (solo visible en móvil) -->
       <button class="menu-btn-right" id="menu-btn-right">☰</button>
       <nav class="nav-links">
@@ -35,39 +47,52 @@
         <li><a href="../REACT/reportes.jsx">Reportes</a></li> 
     </aside> 
 
-    <!-- ============ CONTENIDO PRINCIPAL ============ -->
+    <!-- ================= CONTENIDO PRINCIPAL ================= -->
     <main class="main-container">
       <section class="gestor">
         <h1>Gestión de Actividades</h1>
-        <!-- ============ FORMULARIO ============ -->
-        <form id="actividadForm" class="form-gestion">
-          <input type="hidden" id="actividadId" />
 
-          <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" required placeholder="Ej: Yoga Matutino" />
-          </div>
+        <!-- ===== BOTONES SUPERIORES ===== -->
+        <div class="btn-row">
+          <button id="abrirActividadBtn" class="btn btn-save">Nueva Actividad</button>
+          <button id="buscarActividadBtn" class="btn btn-save">Buscar Actividad</button>
+        </div>
 
-          <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <input type="text" id="descripcion" required placeholder="Ej: Clase de relajación y estiramiento" />
-          </div>
+        <!-- ===== MODAL ===== -->
+        <div id="modalActividad" class="modal">
+          <div class="modal-content">
+            <span class="close-modal close-btn">&times;</span>
 
-          <div class="form-group">
-            <label for="fecha">Fecha:</label>
-            <input type="date" id="fecha" required />
-          </div>
+            <form id="actividadForm" class="form-gestion">
+              <input type="hidden" id="actividadId" />
 
-          <div class="form-group">
-            <label for="hora">Hora:</label>
-            <input type="time" id="hora" required />
-          </div>
+              <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" required placeholder="Ej: Yoga Matutino" />
+              </div>
 
-          <div class="btn-group">
-            <button type="submit" class="btn btn-save">Guardar</button>
-            <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
+              <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <input type="text" id="descripcion" required placeholder="Ej: Clase de relajación y estiramiento" />
+              </div>
+
+              <div class="form-group">
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" required />
+              </div>
+
+              <div class="form-group">
+                <label for="hora">Hora:</label>
+                <input type="time" id="hora" required />
+              </div>
+
+              <div class="btn-group">
+                <button type="submit" class="btn btn-save">Guardar</button>
+                <button type="button" class="close-modal btn btn-secondary">Cancelar</button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
 
         <!-- ============LISTADO============ -->
         <h2>Listado de Actividades</h2>
@@ -103,7 +128,8 @@
       </div> 
     </footer> 
     <!-- ================= SCRIPT ================= --> 
-    <script src="../HTML/JS/actividades.js"></script> 
+    <script src="../HTML/JS/actividades.js"></script>
+    <script src="../HTML/JS/utils.js"></script>
     <script src="../HTML/JS/index.js"></script> 
   </body> 
 </html>

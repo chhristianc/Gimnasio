@@ -50,3 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setInterval(changeSlide, 6000); // cambia cada 6 segundos
 });
+
+const select = document.getElementById("paletaSelect");
+select.addEventListener("change", () => {
+  document.documentElement.setAttribute("data-paleta", select.value);
+});

@@ -1,22 +1,51 @@
-// ==========================================
-// MODO DESARROLLO SIN API (datos simulados)
-// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  setupModal("modalActividad", "abrirActividadBtn");
+  listarActividades();
+});
+
+// =============================
+// FUNCIÓN REUTILIZABLE DE MODAL
+// =============================
+function setupModal(modalId, openBtnId) {
+  const modal = document.getElementById(modalId);
+  const openBtn = document.getElementById(openBtnId);
+  const closeBtns = modal.querySelectorAll(".close-modal");
+
+  openBtn.addEventListener("click", () => {
+    modal.classList.add("show");
+  });
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      modal.classList.remove("show");
+      document.getElementById("actividadForm").reset();
+      editando = false;
+      idEditando = null;
+    });
+  });
+
+  window.addEventListener("click", e => {
+    if (e.target === modal) {
+      modal.classList.remove("show");
+    }
+  });
+}
+
+// =============================
+// DATOS SIMULADOS
+// =============================
 let actividades = [
   { id: 1, nombre: "Zumba", descripcion: "Baile y cardio", fecha: "2025-10-10", hora: "18:00" },
   { id: 2, nombre: "CrossFit", descripcion: "Alta intensidad", fecha: "2025-10-12", hora: "19:00" },
 ];
 
-const form = document.getElementById("actividadForm");
-const tabla = document.querySelector("#actividadesTabla tbody");
-const cancelarBtn = document.getElementById("cancelarBtn");
-
-
-
 let editando = false;
 let idEditando = null;
+const form = document.getElementById("actividadForm");
+const tabla = document.querySelector("#actividadesTabla tbody");
 
 // =============================
-// LISTAR TODAS LAS ACTIVIDADES
+// LISTAR ACTIVIDADES
 // =============================
 function listarActividades() {
   if (actividades.length === 0) {
@@ -62,11 +91,12 @@ form.addEventListener("submit", e => {
   }
 
   form.reset();
+  document.getElementById("modalActividad").classList.remove("show");
   listarActividades();
 });
 
 // =============================
-// EDITAR ACTIVIDAD
+// EDITAR ACTIVIDAD (abre modal)
 // =============================
 function editarActividad(id) {
   const a = actividades.find(a => a.id === id);
@@ -80,6 +110,8 @@ function editarActividad(id) {
 
   editando = true;
   idEditando = id;
+
+  document.getElementById("modalActividad").classList.add("show");
 }
 
 // =============================
