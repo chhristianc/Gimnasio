@@ -71,5 +71,26 @@ namespace Application.UseCases
 
             return response;
         }
+
+        public async Task Update(int id, MiembroUpdateRequest request)
+        {
+            var miembro = await _query.GetById(id);
+
+            miembro.Nombre = request.Nombre;
+            miembro.Dni = request.Dni;
+            miembro.Direccion = request.Direccion;
+            miembro.Telefono = request.Telefono;
+            miembro.FechaNacimiento = request.FechaNacimiento;
+            miembro.UrlFoto = request.UrlFoto;
+
+            await _command.Update(miembro);
+        }
+
+        public async Task Delete(int id)
+        {
+            var miembro = await _query.GetById(id);
+
+            await _command.Delete(miembro);
+        }
     }
 }
