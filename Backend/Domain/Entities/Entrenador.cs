@@ -8,8 +8,6 @@ namespace Domain.Entities
 {
     public class Entrenador : Persona
     {
-        public int? CertificadoId { get; set; }
-
         public Certificado Certificado { get; set; }
         public ICollection<Clase> Clases { get; set; }
     }

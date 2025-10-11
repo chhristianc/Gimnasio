@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Descuento
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public TipoDescuento Tipo { get; set; }
         public decimal Porcentaje { get; set; }
 

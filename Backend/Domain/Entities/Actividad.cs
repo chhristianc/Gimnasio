@@ -12,6 +12,6 @@ namespace Domain.Entities
         public string Nombre { get; set; }
         public string? Descripcion { get; set; }
 
-        public ICollection<Clase> Clases { get; set; }
+        public ICollection<Sesion> Sesiones { get; set; }
     }
 }

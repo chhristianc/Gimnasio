@@ -9,7 +9,6 @@ namespace Domain.Entities
 {
     public class Miembro : Persona
     {
-        public string? UrlFoto { get; set; }
         public int DescuentoId { get; set; }
 
         public Membresia Membresia { get; set; }
