@@ -10,12 +10,12 @@ namespace Domain.Entities
     {
         public int Id { get; set; }
         public int Cupo { get; set; }
-        public int ActividadId { get; set; }
         public int EntrenadorId { get; set; }
 
-        public Actividad Actividad { get; set; }
         public Entrenador Entrenador { get; set; }
         public ICollection<Horario> Horarios { get; set; }
+        public ICollection<Sesion> Sesiones { get; set; }
         public ICollection<Inscripcion> Inscripciones { get; set; }
+        public ICollection<Asistencia> Asistencias { get; set; }
     }
 }

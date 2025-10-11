@@ -13,5 +13,7 @@ namespace Application.Interfaces
         Task Add(MiembroRequest request);
         Task<List<MiembroResponse>> GetAll();
         Task<MiembroResponse> GetById(int id);
+        Task Update(int id, MiembroUpdateRequest request);
+        Task Delete(int id);
     }
 }

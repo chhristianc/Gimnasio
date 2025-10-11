@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250925204441_init")]
+    [Migration("20251011174650_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -24,6 +24,10 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.HasSequence("EntrenadorSequence");
+
+            modelBuilder.HasSequence("MiembroSequence");
 
             modelBuilder.Entity("Domain.Entities.Actividad", b =>
                 {
@@ -53,17 +57,51 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ClaseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("InscripcionId")
+                    b.Property<int>("MiembroId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("InscripcionId");
+                    b.HasIndex("ClaseId");
+
+                    b.HasIndex("MiembroId");
 
                     b.ToTable("Asistencia", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Certificado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EntrenadorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaVencimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Institucion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntrenadorId")
+                        .IsUnique();
+
+                    b.ToTable("Certificado", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Clase", b =>
@@ -74,34 +112,20 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ActividadId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Cupo")
                         .HasColumnType("int");
 
-                    b.Property<int>("Dia")
+                    b.Property<int>("EntrenadorId")
                         .HasColumnType("int");
-
-                    b.Property<int?>("EntrenadorId")
-                        .HasColumnType("int");
-
-                    b.Property<TimeSpan>("HoraFin")
-                        .HasColumnType("time");
-
-                    b.Property<TimeSpan>("HoraInicio")
-                        .HasColumnType("time");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActividadId");
 
                     b.HasIndex("EntrenadorId");
 
                     b.ToTable("Clase", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Entrenador", b =>
+            modelBuilder.Entity("Domain.Entities.Descuento", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,9 +133,25 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Certificacion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("Porcentaje")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Descuento", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Entrenador", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR [EntrenadorSequence]");
+
+                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
 
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(max)");
@@ -130,9 +170,41 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UrlFoto")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Entrenador", (string)null);
+
+                    b.UseTpcMappingStrategy();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Horario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClaseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Dia")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("HoraFin")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("HoraInicio")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClaseId");
+
+                    b.ToTable("Horario", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Inscripcion", b =>
@@ -198,9 +270,13 @@ namespace Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR [MiembroSequence]");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
+
+                    b.Property<int>("DescuentoId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Direccion")
                         .HasColumnType("nvarchar(max)");
@@ -224,7 +300,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DescuentoId");
+
                     b.ToTable("Miembro", (string)null);
+
+                    b.UseTpcMappingStrategy();
                 });
 
             modelBuilder.Entity("Domain.Entities.Pago", b =>
@@ -241,9 +321,8 @@ namespace Infrastructure.Migrations
                     b.Property<int>("MembresiaId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MetodoPago")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MetodoPago")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Monto")
                         .HasColumnType("decimal(18,2)");
@@ -255,6 +334,55 @@ namespace Infrastructure.Migrations
                     b.ToTable("Pago", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Sesion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActividadId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ClaseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActividadId");
+
+                    b.HasIndex("ClaseId");
+
+                    b.ToTable("Sesion", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Ticket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Detalle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PagoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PagoId")
+                        .IsUnique();
+
+                    b.ToTable("Ticket", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.TipoMembresia", b =>
                 {
                     b.Property<int>("Id")
@@ -264,9 +392,6 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Costo")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Descuento")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("DuracionDias")
@@ -283,30 +408,52 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Asistencia", b =>
                 {
-                    b.HasOne("Domain.Entities.Inscripcion", "Inscripcion")
+                    b.HasOne("Domain.Entities.Clase", "Clase")
                         .WithMany("Asistencias")
-                        .HasForeignKey("InscripcionId")
+                        .HasForeignKey("ClaseId");
+
+                    b.HasOne("Domain.Entities.Miembro", "Miembro")
+                        .WithMany("Asistencias")
+                        .HasForeignKey("MiembroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Inscripcion");
+                    b.Navigation("Clase");
+
+                    b.Navigation("Miembro");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Certificado", b =>
+                {
+                    b.HasOne("Domain.Entities.Entrenador", "Entrenador")
+                        .WithOne("Certificado")
+                        .HasForeignKey("Domain.Entities.Certificado", "EntrenadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Entrenador");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clase", b =>
                 {
-                    b.HasOne("Domain.Entities.Actividad", "Actividad")
+                    b.HasOne("Domain.Entities.Entrenador", "Entrenador")
                         .WithMany("Clases")
-                        .HasForeignKey("ActividadId")
+                        .HasForeignKey("EntrenadorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Entrenador", "Entrenador")
-                        .WithMany("Clases")
-                        .HasForeignKey("EntrenadorId");
-
-                    b.Navigation("Actividad");
-
                     b.Navigation("Entrenador");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Horario", b =>
+                {
+                    b.HasOne("Domain.Entities.Clase", "Clase")
+                        .WithMany("Horarios")
+                        .HasForeignKey("ClaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Clase");
                 });
 
             modelBuilder.Entity("Domain.Entities.Inscripcion", b =>
@@ -347,6 +494,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("TipoMembresia");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Miembro", b =>
+                {
+                    b.HasOne("Domain.Entities.Descuento", "Descuento")
+                        .WithMany("Miembros")
+                        .HasForeignKey("DescuentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Descuento");
+                });
+
             modelBuilder.Entity("Domain.Entities.Pago", b =>
                 {
                     b.HasOne("Domain.Entities.Membresia", "Membresia")
@@ -358,24 +516,63 @@ namespace Infrastructure.Migrations
                     b.Navigation("Membresia");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Sesion", b =>
+                {
+                    b.HasOne("Domain.Entities.Actividad", "Actividad")
+                        .WithMany("Sesiones")
+                        .HasForeignKey("ActividadId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Clase", "Clase")
+                        .WithMany("Sesiones")
+                        .HasForeignKey("ClaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actividad");
+
+                    b.Navigation("Clase");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Ticket", b =>
+                {
+                    b.HasOne("Domain.Entities.Pago", "Pago")
+                        .WithOne("Ticket")
+                        .HasForeignKey("Domain.Entities.Ticket", "PagoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pago");
+                });
+
             modelBuilder.Entity("Domain.Entities.Actividad", b =>
                 {
-                    b.Navigation("Clases");
+                    b.Navigation("Sesiones");
                 });
 
             modelBuilder.Entity("Domain.Entities.Clase", b =>
                 {
+                    b.Navigation("Asistencias");
+
+                    b.Navigation("Horarios");
+
                     b.Navigation("Inscripciones");
+
+                    b.Navigation("Sesiones");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Descuento", b =>
+                {
+                    b.Navigation("Miembros");
                 });
 
             modelBuilder.Entity("Domain.Entities.Entrenador", b =>
                 {
-                    b.Navigation("Clases");
-                });
+                    b.Navigation("Certificado")
+                        .IsRequired();
 
-            modelBuilder.Entity("Domain.Entities.Inscripcion", b =>
-                {
-                    b.Navigation("Asistencias");
+                    b.Navigation("Clases");
                 });
 
             modelBuilder.Entity("Domain.Entities.Membresia", b =>
@@ -385,9 +582,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Miembro", b =>
                 {
+                    b.Navigation("Asistencias");
+
                     b.Navigation("Inscripciones");
 
                     b.Navigation("Membresia")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Pago", b =>
+                {
+                    b.Navigation("Ticket")
                         .IsRequired();
                 });
 

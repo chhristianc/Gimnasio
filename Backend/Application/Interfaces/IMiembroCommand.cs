@@ -10,6 +10,7 @@ namespace Application.Interfaces
     public interface IMiembroCommand
     {
         Task Add(Miembro miembro);
+        Task Update(Miembro miembro);
         Task Delete(Miembro miembro);
     }
 }

@@ -2,6 +2,7 @@
 using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace API.Controllers
 {
@@ -26,17 +27,33 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var response = await _service.GetAll();
+            var miembros = await _service.GetAll();
 
-            return Ok(response);
+            return Ok(miembros);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var response = await _service.GetById(id);
+            var miembro = await _service.GetById(id);
 
-            return Ok(response);
+            return Ok(miembro);
+        }
+
+        [HttpPatch]
+        public async Task<IActionResult> Update(int id, MiembroUpdateRequest request)
+        {
+            await _service.Update(id,request);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.Delete(id);
+
+            return NoContent();
         }
     }
 }
