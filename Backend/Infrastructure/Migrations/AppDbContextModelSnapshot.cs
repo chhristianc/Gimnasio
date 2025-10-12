@@ -44,6 +44,20 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actividad", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descripcion = "",
+                            Nombre = "Zumba"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descripcion = "",
+                            Nombre = "CrossFit"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Asistencia", b =>
@@ -133,12 +147,39 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Porcentaje")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Tipo")
-                        .HasColumnType("int");
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Descuento", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Porcentaje = 0m,
+                            Tipo = "Ninguno"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Porcentaje = 0.10m,
+                            Tipo = "Estudiante"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Porcentaje = 0.15m,
+                            Tipo = "Jubilado"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Porcentaje = 0.20m,
+                            Tipo = "GrupoFamiliar"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Entrenador", b =>
@@ -175,6 +216,26 @@ namespace Infrastructure.Migrations
                     b.ToTable("Entrenador", (string)null);
 
                     b.UseTpcMappingStrategy();
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Dni = "42151500",
+                            Nombre = "Pablo Perez"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Dni = "29525462",
+                            Nombre = "María Fernandez"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Dni = "38252551",
+                            Nombre = "Lucas García"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Horario", b =>
@@ -401,6 +462,22 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TipoMembresia", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Costo = 10000m,
+                            DuracionDias = 30,
+                            Nombre = "Mensual"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Costo = 100000m,
+                            DuracionDias = 365,
+                            Nombre = "Anual"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Asistencia", b =>
