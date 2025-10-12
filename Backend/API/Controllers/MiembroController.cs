@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(MiembroRequest request)
+        public async Task<IActionResult> Create(MiembroAddRequest request)
         {
             await _service.Add(request);
             return StatusCode(201);

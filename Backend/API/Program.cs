@@ -21,6 +21,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IMiembroService, MiembroService>();
 builder.Services.AddScoped<IMiembroQuery, MiembroQuery>();
 builder.Services.AddScoped<IMiembroCommand, MiembroCommand>();
+builder.Services.AddScoped<ITipoMembresiaService, TipoMembresiaService>();
+builder.Services.AddScoped<ITipoMembresiaQuery, TipoMembresiaQuery>();
+builder.Services.AddScoped<IDescuentoService, DescuentoService>();
+builder.Services.AddScoped<IDescuentoQuery, DescuentoQuery>();
 
 var app = builder.Build();
 

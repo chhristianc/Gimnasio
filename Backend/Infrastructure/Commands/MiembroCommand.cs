@@ -18,16 +18,20 @@ namespace Infrastructure.Commands
             _context = context;
         }
 
-        public async Task Add(Miembro miembro)
+        public async Task<Miembro> Add(Miembro miembro)
         {
             await _context.AddAsync(miembro);
             await _context.SaveChangesAsync();
+
+            return miembro;
         }
 
-        public async Task Update(Miembro miembro)
+        public async Task<Miembro> Update(Miembro miembro)
         {
             _context.Update(miembro);
             await _context.SaveChangesAsync();
+
+            return miembro;
         }
 
         public async Task Delete(Miembro miembro)
