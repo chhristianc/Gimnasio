@@ -1,5 +1,6 @@
 ﻿using Application.DTOs.Requests;
 using Application.DTOs.Responses;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Application.Interfaces
 {
     public interface IMiembroService
     {
-        Task Add(MiembroRequest request);
+        Task Add(MiembroAddRequest request);
         Task<List<MiembroResponse>> GetAll();
         Task<MiembroResponse> GetById(int id);
         Task Update(int id, MiembroUpdateRequest request);

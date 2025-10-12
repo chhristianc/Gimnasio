@@ -5,6 +5,7 @@ using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,15 +15,26 @@ namespace Application.UseCases
     {
         private readonly IMiembroQuery _query;
         private readonly IMiembroCommand _command;
+        private readonly IDescuentoService _descuentoService;
+        private readonly ITipoMembresiaService _tipoMembresiaService;
 
-        public MiembroService(IMiembroQuery query, IMiembroCommand command)
+        public MiembroService(IMiembroQuery query, IMiembroCommand command, IDescuentoService descuentoService, ITipoMembresiaService tipoMembresiaService)
         {
             _query = query;
             _command = command;
+            _descuentoService = descuentoService;
+            _tipoMembresiaService = tipoMembresiaService;
         }
 
-        public async Task Add(MiembroRequest request)
+        public async Task Add(MiembroAddRequest request)
         {
+            var tipomembrecia = await _tipoMembresiaService.GetById(request.TipoMembresiaId);
+
+            decimal costo = tipomembrecia.Costo;
+            int duracionDias = tipomembrecia.DuracionDias;
+            decimal porcentajeDescuento = (await _descuentoService.GetById(request.DescuentoId)).Porcentaje;
+            
+
             var miembro = new Miembro
             {
                 Nombre = request.Nombre,
@@ -30,10 +42,19 @@ namespace Application.UseCases
                 Direccion = request.Direccion,
                 Telefono = request.Telefono,
                 FechaNacimiento = request.FechaNacimiento,
-                UrlFoto = request.UrlFoto
+                UrlFoto = request.UrlFoto,
+                DescuentoId = request.DescuentoId,
+
+                Membresia = new Membresia
+                {
+                    TipoMembresiaId = request.TipoMembresiaId,
+                    CostoFinal = costo - (costo * porcentajeDescuento),
+                    FechaInicio = DateTime.Now.Date,
+                    FechaVencimiento = DateTime.Now.Date.AddDays(duracionDias)
+                }
             };
 
-            await _command.Add(miembro);
+           await _command.Add(miembro);
         }
 
         public async Task<List<MiembroResponse>> GetAll()

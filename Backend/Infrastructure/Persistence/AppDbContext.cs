@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,11 @@ namespace Infrastructure.Persistence
                     .WithOne(s => s.Actividad)
                     .HasForeignKey(s => s.ActividadId)
                     .IsRequired();
+
+                entity.HasData(
+                    new Actividad { Id = 1, Nombre = "Zumba", Descripcion = "" },
+                    new Actividad { Id = 2, Nombre = "CrossFit", Descripcion = "" }
+                    );
             });
 
             modelBuilder.Entity<Asistencia>(entity =>
@@ -101,13 +107,20 @@ namespace Infrastructure.Persistence
                 entity.ToTable("Descuento");
                 entity.HasKey(d => d.Id);
                 entity.Property(d => d.Id).ValueGeneratedOnAdd();
-                entity.Property(d => d.Tipo).IsRequired();
+                entity.Property(d => d.Tipo).HasConversion<string>().IsRequired();
                 entity.Property(d => d.Porcentaje).IsRequired();
 
                 entity.HasMany(d => d.Miembros)
                     .WithOne(m => m.Descuento)
                     .HasForeignKey(m => m.DescuentoId)
                     .IsRequired();
+
+                entity.HasData(
+                    new Descuento { Id = 1, Tipo = TipoDescuento.Ninguno, Porcentaje = 0m },
+                    new Descuento { Id = 2, Tipo = TipoDescuento.Estudiante, Porcentaje = 0.10m },
+                    new Descuento { Id = 3, Tipo = TipoDescuento.Jubilado, Porcentaje = 0.15m },
+                    new Descuento { Id = 4, Tipo = TipoDescuento.GrupoFamiliar, Porcentaje = 0.20m }
+                    ); ;
             });
 
             modelBuilder.Entity<Entrenador>(entity =>
@@ -122,6 +135,12 @@ namespace Infrastructure.Persistence
                     .WithOne(c => c.Entrenador)
                     .HasForeignKey(c => c.EntrenadorId)
                     .IsRequired();
+
+                entity.HasData(
+                    new Entrenador { Id = 1, Nombre = "Pablo Perez", Dni = "42151500" },
+                    new Entrenador { Id = 2, Nombre = "María Fernandez", Dni = "29525462" },
+                    new Entrenador { Id = 3, Nombre = "Lucas García", Dni = "38252551" }
+                    );
             });
 
             modelBuilder.Entity<Horario>(entity =>
@@ -225,6 +244,11 @@ namespace Infrastructure.Persistence
                 .WithOne(m => m.TipoMembresia)
                 .HasForeignKey(m => m.TipoMembresiaId)
                 .IsRequired();
+
+                entity.HasData(
+                    new TipoMembresia { Id = 1, Nombre = "Mensual", DuracionDias = 30, Costo = 10000 },
+                    new TipoMembresia { Id = 2, Nombre = "Anual", DuracionDias = 365, Costo = 100000 }
+                    );
             });
         }
     }

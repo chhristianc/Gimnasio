@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IMiembroCommand
+    public interface IDescuentoQuery
     {
-        Task<Miembro> Add(Miembro miembro);
-        Task<Miembro> Update(Miembro miembro);
-        Task Delete(Miembro miembro);
+        Task<Descuento> GetById(int id);
     }
 }

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class DatosIniciales : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +39,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Porcentaje = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -314,6 +316,45 @@ namespace Infrastructure.Migrations
                         principalTable: "Pago",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Actividad",
+                columns: new[] { "Id", "Descripcion", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, "", "Zumba" },
+                    { 2, "", "CrossFit" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Descuento",
+                columns: new[] { "Id", "Porcentaje", "Tipo" },
+                values: new object[,]
+                {
+                    { 1, 0m, "Ninguno" },
+                    { 2, 0.10m, "Estudiante" },
+                    { 3, 0.15m, "Jubilado" },
+                    { 4, 0.20m, "GrupoFamiliar" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Entrenador",
+                columns: new[] { "Id", "Direccion", "Dni", "FechaNacimiento", "Nombre", "Telefono", "UrlFoto" },
+                values: new object[,]
+                {
+                    { 1, null, "42151500", null, "Pablo Perez", null, null },
+                    { 2, null, "29525462", null, "María Fernandez", null, null },
+                    { 3, null, "38252551", null, "Lucas García", null, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TipoMembresia",
+                columns: new[] { "Id", "Costo", "DuracionDias", "Nombre" },
+                values: new object[,]
+                {
+                    { 1, 10000m, 30, "Mensual" },
+                    { 2, 100000m, 365, "Anual" }
                 });
 
             migrationBuilder.CreateIndex(
