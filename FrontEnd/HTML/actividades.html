@@ -31,6 +31,7 @@
       <nav class="nav-links">
         <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
         <a href="index.html">Inicio</a>
+        <a href="horarios.html">Horario</a>
         <a href="contacto.html">Contacto</a>
       </nav>
     </header>
@@ -55,15 +56,13 @@
         <!-- ===== BOTONES SUPERIORES ===== -->
         <div class="btn-row">
           <button id="abrirActividadBtn" class="btn btn-save">Nueva Actividad</button>
-          <button id="buscarActividadBtn" class="btn btn-save">Buscar Actividad</button>
+          <button id="buscarActividadBtn" class="btn btn-save">Consultar Actividad</button>
         </div>
 
         <!-- ===== MODAL ===== -->
         <div id="modalActividad" class="modal">
           <div class="modal-content">
-            <span class="close-modal close-btn">&times;</span>
-
-            <form id="actividadForm" class="form-gestion">
+            <form id="actividadForm">
               <input type="hidden" id="actividadId" />
 
               <div class="form-group">
@@ -73,36 +72,54 @@
 
               <div class="form-group">
                 <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" required placeholder="Ej: Clase de relajación y estiramiento" />
-              </div>
-
-              <div class="form-group">
-                <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" required />
-              </div>
-
-              <div class="form-group">
-                <label for="hora">Hora:</label>
-                <input type="time" id="hora" required />
+                <textarea id="descripcion" required placeholder="Describe la Actividad..."></textarea>
               </div>
 
               <div class="btn-group">
                 <button type="submit" class="btn btn-save">Guardar</button>
-                <button type="button" class="close-modal btn btn-secondary">Cancelar</button>
+                <button type="button" id="cancelarFormBtn" class="btn btn-secondary">Cancelar</button>
               </div>
             </form>
           </div>
         </div>
+
+
+        <!-- ===== MODAL CONSULTA (entrada de nombre) ===== -->
+        <div id="modalConsulta" class="modal">
+          <div class="modal-content small">
+            <h2>Consultar Actividad</h2>
+            <input type="text" id="consultaNombre" placeholder="Ingrese nombre de la actividad">
+            <div class="btn-group">
+              <button id="confirmarConsultaBtn" class="btn btn-save">Consultar</button>
+              <button id="cancelarConsultaBtn" class="btn btn-secondary">Cancelar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODAL DETALLES DE ACTIVIDAD ===== -->
+        <div id="modalDetalle" class="modal">
+          <div class="modal-content">
+            <h2>Detalles de la Actividad</h2>
+            <div id="detalleContenido"></div>
+            <div class="btn-group">
+              <button id="btnEditarDetalle" class="btn-small btn btn-edit">Modificar</button>
+              <button id="btnEliminarDetalle" class="btn-small btn btn-delete">Eliminar</button>
+              <button id="btnImprimirDetalle" class="btn-small btn btn-save">Imprimir</button>
+              <button id="cerrarDetalleBtn" class="btn-small btn btn-secondary">Cerrar</button>
+            </div>
+          </div>
+        </div>
+
+
 
         <!-- ============LISTADO============ -->
         <h2>Listado de Actividades</h2>
         <table id="actividadesTabla" class="tabla-gestion">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Nombre</th>
               <th>Descripción</th>
-              <th>Fecha</th>
-              <th>Hora</th>
               <th>Acciones</th>
             </tr>
           </thead>

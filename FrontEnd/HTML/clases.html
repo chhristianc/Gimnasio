@@ -32,6 +32,7 @@
       <nav class="nav-links">
         <button class="close-btn-right" id="close-btn-right">×</button> <!-- botón cierre -->
         <a href="index.html">Inicio</a>
+        <a href="horarios.html">Horario</a>
         <a href="contacto.html">Contacto</a>
       </nav>
     </header>
@@ -59,39 +60,107 @@
       <section class="gestor">
         <h1>Gestión de Clases</h1>
 
-        <!-- ===== FORMULARIO ===== -->
+        <!-- ===== BOTONES SUPERIORES ===== -->
         <div class="btn-row">
-          <button id="abrirClaseBtn" class="btn btn-save">Nueva Clase</button>
-          <button id="buscarClaseBtn" class="btn btn-save">Buscar Clase</button>
+          <button id="btnRegistrar" class="btn btn-save">Registrar Clase</button>
+          <button id="btnConsultar" class="btn btn-save">Consultar Clase</button>
         </div>
 
-        <!-- Modal -->
+        <!-- ===== MODAL REGISTRO / MODIFICACIÓN ===== -->
         <div id="modalClase" class="modal">
           <div class="modal-content">
-            <span class="close-modal close-btn">×</span>
-            <form id="claseForm" class="form-gestion">
+            <form id="claseForm">
               <input type="hidden" id="claseId" />
 
               <div class="form-group">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" required placeholder="Ej: CrossFit Intermedio"/>
+                <input type="text" id="nombre" required placeholder="Ej: CrossFit Intermedio" />
               </div>
 
               <div class="form-group">
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" placeholder="Describe la clase..."></textarea>
+                <label>Actividades:</label>
+                <div id="listaActividades" class="lista-actividades"></div>
               </div>
 
               <div class="form-group">
-                <label for="actividades">Actividades relacionadas:</label>
-                <input type="text" id="actividades" placeholder="Ej: Cardio, Fuerza"/>
+                <label for="cupos">Cupos:</label>
+                <input type="number" id="cupos" min="1" required placeholder="Ej: 20" />
+              </div>
+
+              <div class="form-group">
+                <label for="idEntrenador">Entrenador:</label>
+                <input type="text" id="idEntrenador" required placeholder="Ej: Nombre del Entrenador" />
+              </div>
+
+              <!-- ============= NUEVO BLOQUE DE HORARIO ============= -->
+              <div class="form-group">
+                <label for="dia">Día:</label>
+                <select id="dia" required>
+                  <option value="">Seleccione un día</option>
+                  <option value="Lunes">Lunes</option>
+                  <option value="Martes">Martes</option>
+                  <option value="Miércoles">Miércoles</option>
+                  <option value="Jueves">Jueves</option>
+                  <option value="Viernes">Viernes</option>
+                  <option value="Sábado">Sábado</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="horaInicio">Hora de inicio:</label>
+                <input type="time" id="horaInicio" required />
+              </div>
+
+              <div class="form-group">
+                <label for="duracion">Duración (min):</label>
+                <input type="number" id="duracion" min="15" step="5" placeholder="Ej: 60" required />
               </div>
 
               <div class="btn-group">
                 <button type="submit" class="btn btn-save">Guardar</button>
-                <button type="button" id="cancelarBtn" class="close-modal btn btn-secondary">Cancelar</button>
+                <button type="button" id="cancelarBtn" class="btn btn-secondary">Cancelar</button>
               </div>
             </form>
+          </div>
+        </div>
+
+        <!-- ===== MODAL CONSULTA ===== -->
+        <div id="modalConsulta" class="modal">
+          <div class="modal-content small">
+            <h3>Consultar Clase</h3>
+            <input type="text" id="buscarClaseInput" placeholder="Nombre o ID de clase" />
+            <div class="btn-group">
+              <button id="confirmarConsultaBtn" class="btn btn-save">Consultar</button>
+              <button id="cancelarConsultaBtn" class="btn btn-secondary">Cancelar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODAL DETALLES ===== -->
+        <div id="modalDetalle" class="modal">
+          <div class="modal-content">
+            <h3>Detalles de la Clase</h3>
+            <div id="detalleContenido"></div>
+            <div class="btn-group">
+              <button id="btnEditarClase" class="btn btn-edit btn-small">Modificar</button>
+              <button id="btnEliminarClase" class="btn btn-delete btn-small">Eliminar</button>
+              <button id="btnVerInscriptos" class="btn btn-save btn-small">Consultar Inscriptos</button>
+              <button id="btnImprimirDetalle" class="btn btn-save btn-small">Imprimir</button>
+              <button id="btnCerrarDetalle" class="btn btn-secondary btn-small">Cerrar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== MODAL INSCRIPTOS ===== -->
+        <div id="modalInscriptos" class="modal">
+          <div class="modal-content">
+            <h3>Inscriptos en la Clase</h3>
+            <ul id="listaInscriptos"></ul>
+            <div class="btn-group">
+              <button id="btnInscribirMiembro" class="btn btn-save btn-small">Inscribir Miembro</button>
+              <button id="btnEliminarMiembro" class="btn btn-delete btn-small">Eliminar Miembro</button>
+              <button id="btnCerrarInscriptos" class="btn btn-secondary btn-small">Cerrar</button>
+            </div>
           </div>
         </div>
 
@@ -100,9 +169,12 @@
         <table id="clasesTabla" class="tabla-gestion">
           <thead>
             <tr>
+              <th>ID</th>
               <th>Nombre</th>
-              <th>Descripción</th>
               <th>Actividades</th>
+              <th>Cupo</th>
+              <th>Entrenador</th>
+              <th>Horario</th>
               <th>Acciones</th>
             </tr>
           </thead>

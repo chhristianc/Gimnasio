@@ -55,3 +55,4 @@ const select = document.getElementById("paletaSelect");
 select.addEventListener("change", () => {
   document.documentElement.setAttribute("data-paleta", select.value);
 });
+
