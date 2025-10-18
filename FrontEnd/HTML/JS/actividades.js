@@ -1,112 +1,132 @@
 document.addEventListener("DOMContentLoaded", () => {
-  setupModal("modalActividad", "abrirActividadBtn");
   listarActividades();
+  configurarEventos();
 });
-
-// =============================
-// FUNCIÓN REUTILIZABLE DE MODAL
-// =============================
-function setupModal(modalId, openBtnId) {
-  const modal = document.getElementById(modalId);
-  const openBtn = document.getElementById(openBtnId);
-  const closeBtns = modal.querySelectorAll(".close-modal");
-
-  openBtn.addEventListener("click", () => {
-    modal.classList.add("show");
-  });
-
-  closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      modal.classList.remove("show");
-      document.getElementById("actividadForm").reset();
-      editando = false;
-      idEditando = null;
-    });
-  });
-
-  window.addEventListener("click", e => {
-    if (e.target === modal) {
-      modal.classList.remove("show");
-    }
-  });
-}
 
 // =============================
 // DATOS SIMULADOS
 // =============================
 let actividades = [
-  { id: 1, nombre: "Zumba", descripcion: "Baile y cardio", fecha: "2025-10-10", hora: "18:00" },
-  { id: 2, nombre: "CrossFit", descripcion: "Alta intensidad", fecha: "2025-10-12", hora: "19:00" },
+  { id: 1, nombre: "Zumba", descripcion: "Baile y cardio" },
+  { id: 2, nombre: "CrossFit", descripcion: "Entrenamiento de alta intensidad" }
 ];
 
 let editando = false;
 let idEditando = null;
-const form = document.getElementById("actividadForm");
-const tabla = document.querySelector("#actividadesTabla tbody");
+
+// =============================
+// CONFIGURAR EVENTOS PRINCIPALES
+// =============================
+function configurarEventos() {
+  const form = document.getElementById("actividadForm");
+  const modalActividad = document.getElementById("modalActividad");
+  const modalConsulta = document.getElementById("modalConsulta");
+  const modalDetalle = document.getElementById("modalDetalle");
+  const cancelarFormBtn = document.getElementById("cancelarFormBtn");
+
+  // Abrir modal Nueva Actividad
+  document.getElementById("abrirActividadBtn").addEventListener("click", () => {
+    form.reset();
+    editando = false;
+    idEditando = null;
+    modalActividad.classList.add("show");
+  });
+
+  // Guardar / Editar actividad
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const nueva = {
+      id: editando ? idEditando : Date.now(),
+      nombre: document.getElementById("nombre").value.trim(),
+      descripcion: document.getElementById("descripcion").value.trim()
+    };
+
+    if (editando) {
+      const idx = actividades.findIndex(a => a.id === idEditando);
+      actividades[idx] = nueva;
+      editando = false;
+      idEditando = null;
+    } else {
+      actividades.push(nueva);
+    }
+
+    form.reset();
+    modalActividad.classList.remove("show");
+    listarActividades();
+  });
+
+  // Cancelar formulario (también limpia datos)
+  cancelarFormBtn.addEventListener("click", () => {
+    form.reset();
+    editando = false;
+    idEditando = null;
+    modalActividad.classList.remove("show");
+  });
+
+  // Consultar actividad
+  document.getElementById("buscarActividadBtn").addEventListener("click", () => {
+    modalConsulta.classList.add("show");
+  });
+
+  document.getElementById("cancelarConsultaBtn").addEventListener("click", () => {
+    modalConsulta.classList.remove("show");
+  });
+
+  document.getElementById("confirmarConsultaBtn").addEventListener("click", () => {
+    const nombre = document.getElementById("consultaNombre").value.toLowerCase();
+    const act = actividades.find(a => a.nombre.toLowerCase() === nombre);
+    modalConsulta.classList.remove("show");
+
+    if (!act) {
+      alert("Actividad no encontrada");
+      return;
+    }
+
+    mostrarDetalle(act);
+  });
+
+  document.getElementById("cerrarDetalleBtn").addEventListener("click", () => {
+    modalDetalle.classList.remove("show");
+  });
+}
 
 // =============================
 // LISTAR ACTIVIDADES
 // =============================
 function listarActividades() {
+  const tbody = document.querySelector("#actividadesTabla tbody");
   if (actividades.length === 0) {
-    tabla.innerHTML = "<tr><td colspan='5'>No hay actividades registradas.</td></tr>";
+    tbody.innerHTML = "<tr><td colspan='4'>No hay actividades registradas.</td></tr>";
     return;
   }
 
-  tabla.innerHTML = actividades.map(a => `
+  tbody.innerHTML = actividades.map(a => `
     <tr>
+      <td>${a.id}</td>
       <td>${a.nombre}</td>
       <td>${a.descripcion}</td>
-      <td>${a.fecha}</td>
-      <td>${a.hora}</td>
       <td>
-        <button onclick="editarActividad(${a.id})" class="btn-small btn btn-edit">Editar</button>
-        <button onclick="eliminarActividad(${a.id})" class="btn-small btn btn-delete">Eliminar</button>
+        <button class="btn-small btn btn-edit" onclick="editarActividad(${a.id})">Modificar</button>
+        <button class="btn-small btn btn-delete" onclick="eliminarActividad(${a.id})">Eliminar</button>
+        <button class="btn-small btn btn-save" onclick="imprimirActividad(${a.id})">Imprimir</button>
       </td>
     </tr>
   `).join("");
 }
 
 // =============================
-// CREAR / ACTUALIZAR ACTIVIDAD
-// =============================
-form.addEventListener("submit", e => {
-  e.preventDefault();
-
-  const nuevaActividad = {
-    id: editando ? idEditando : Date.now(),
-    nombre: document.getElementById("nombre").value,
-    descripcion: document.getElementById("descripcion").value,
-    fecha: document.getElementById("fecha").value,
-    hora: document.getElementById("hora").value
-  };
-
-  if (!editando) {
-    actividades.push(nuevaActividad);
-  } else {
-    const index = actividades.findIndex(a => a.id === idEditando);
-    actividades[index] = nuevaActividad;
-    editando = false;
-    idEditando = null;
-  }
-
-  form.reset();
-  document.getElementById("modalActividad").classList.remove("show");
-  listarActividades();
-});
-
-// =============================
-// EDITAR ACTIVIDAD (abre modal)
+// EDITAR ACTIVIDAD
 // =============================
 function editarActividad(id) {
-  const a = actividades.find(a => a.id === id);
-  if (!a) return;
+  const act = actividades.find(a => a.id === id);
+  if (!act) return;
 
-  document.getElementById("actividadId").value = a.id;
-  document.getElementById("nombre").value = a.nombre;
-  document.getElementById("descripcion").value = a.descripcion;
-  document.getElementById("fecha").value = a.fecha;
-  document.getElementById("hora").value = a.hora;
+  const modalDetalle = document.getElementById("modalDetalle");
+  modalDetalle.classList.remove("show"); // Cierra el modal de detalle si estaba abierto
+
+  document.getElementById("actividadId").value = act.id;
+  document.getElementById("nombre").value = act.nombre;
+  document.getElementById("descripcion").value = act.descripcion;
 
   editando = true;
   idEditando = id;
@@ -118,22 +138,44 @@ function editarActividad(id) {
 // ELIMINAR ACTIVIDAD
 // =============================
 function eliminarActividad(id) {
-  if (!confirm("¿Seguro que querés eliminar esta actividad?")) return;
+  const modalDetalle = document.getElementById("modalDetalle");
+  modalDetalle.classList.remove("show"); // Cierra detalle antes de eliminar
 
+  if (!confirm("¿Desea eliminar esta actividad?")) return;
   actividades = actividades.filter(a => a.id !== id);
   listarActividades();
 }
 
 // =============================
-// CANCELAR EDICIÓN
+// IMPRIMIR ACTIVIDAD
 // =============================
-cancelarBtn.addEventListener("click", () => {
-  form.reset();
-  editando = false;
-  idEditando = null;
-});
+function imprimirActividad(id) {
+  const modalDetalle = document.getElementById("modalDetalle");
+  modalDetalle.classList.remove("show"); // Cierra detalle antes de imprimir
+
+  const act = actividades.find(a => a.id === id);
+  if (!act) return;
+  const ventana = window.open("", "_blank");
+  ventana.document.write(`<h2>${act.nombre}</h2><p>${act.descripcion}</p>`);
+  ventana.print();
+}
 
 // =============================
-// CARGAR AL INICIAR
+// MOSTRAR DETALLE (consultar())
 // =============================
-listarActividades();
+function mostrarDetalle(act) {
+  const modal = document.getElementById("modalDetalle");
+  const cont = document.getElementById("detalleContenido");
+  cont.innerHTML = `
+    <p><strong>ID:</strong> ${act.id}</p>
+    <p><strong>Nombre:</strong> ${act.nombre}</p>
+    <p><strong>Descripción:</strong> ${act.descripcion}</p>
+  `;
+
+  // Cierra detalle antes de ejecutar acciones
+  document.getElementById("btnEditarDetalle").onclick = () => editarActividad(act.id);
+  document.getElementById("btnEliminarDetalle").onclick = () => eliminarActividad(act.id);
+  document.getElementById("btnImprimirDetalle").onclick = () => imprimirActividad(act.id);
+
+  modal.classList.add("show");
+}

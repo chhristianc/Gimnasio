@@ -1,98 +1,68 @@
 document.addEventListener("DOMContentLoaded", () => {
-  setupModal("modalDescuento", "abrirDescuentoBtn");
-  setupModal("modalTipo", "abrirTipoBtn");
-  setupModal("modalMembresia", "abrirMembresiaBtn");
+  configurarEventosDescuentos();
+  configurarEventosTipos();
 
   listarDescuentos();
   listarTipos();
-  listarMembresias();
 });
 
 // =====================================================
-// CONFIGURACIÓN DE MODALES REUTILIZABLE
+// VARIABLES GLOBALES
 // =====================================================
-function setupModal(modalId, openBtnId) {
-  const modal = document.getElementById(modalId);
-  const openBtn = document.getElementById(openBtnId);
-  const closeBtns = modal.querySelectorAll(".close-modal");
-
-  openBtn.addEventListener("click", () => modal.classList.add("show"));
-
-  closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      modal.classList.remove("show");
-      modal.querySelector("form").reset();
-      editando = false;
-      idEditando = null;
-    });
-  });
-
-  window.addEventListener("click", e => {
-    if (e.target === modal) modal.classList.remove("show");
-  });
-}
+let editando = false;
+let idEditando = null;
 
 // =====================================================
-// VARIABLES Y DATOS SIMULADOS
+// ======== DESCUENTOS
 // =====================================================
 let descuentos = [
   { id: 1, descripcion: "10% estudiantes", porcentaje: 10 },
   { id: 2, descripcion: "15% fidelidad", porcentaje: 15 },
 ];
-let tipos = [
-  { id: 1, nombre: "Mensual", duracion: 30, costo: 10000, descuentoId: 1 },
-];
-let membresias = [
-  { id: 1, miembro: "Juan Pérez", tipoId: 1, inicio: "2025-10-01", fin: "2025-10-31" },
-];
 
-let editando = false;
-let idEditando = null;
-
-// =====================================================
-// DESCUENTOS
-// =====================================================
-const descuentoForm = document.getElementById("descuentoForm");
-const descuentosTabla = document.querySelector("#descuentosTabla tbody");
-
+// === Listar Descuentos ===
 function listarDescuentos() {
-  descuentosTabla.innerHTML = descuentos.map(d => `
+  const tbody = document.querySelector("#descuentosTabla tbody");
+  tbody.innerHTML = descuentos
+    .map(
+      (d) => `
     <tr>
+      <td>${d.id}</td>
       <td>${d.descripcion}</td>
       <td>${d.porcentaje}%</td>
       <td>
-        <button onclick="editarDescuento(${d.id})" class="btn-small btn btn-edit">Editar</button>
+        <button onclick="editarDescuento(${d.id})" class="btn-small btn btn-edit">Modificar</button>
         <button onclick="eliminarDescuento(${d.id})" class="btn-small btn btn-delete">Eliminar</button>
       </td>
-    </tr>`).join("");
-  actualizarSelectDescuentos();
+    </tr>`
+    )
+    .join("");
 }
 
-descuentoForm.addEventListener("submit", e => {
+// === Guardar / Modificar ===
+function guardarDescuento(e) {
   e.preventDefault();
   const nueva = {
     id: editando ? idEditando : Date.now(),
     descripcion: document.getElementById("descripcionDescuento").value,
-    porcentaje: document.getElementById("porcentajeDescuento").value
+    porcentaje: parseFloat(document.getElementById("porcentajeDescuento").value),
   };
 
-  if (!editando) descuentos.push(nueva);
-  else {
-    const i = descuentos.findIndex(d => d.id === idEditando);
+  if (editando) {
+    const i = descuentos.findIndex((d) => d.id === idEditando);
     descuentos[i] = nueva;
-    editando = false;
-    idEditando = null;
+  } else {
+    descuentos.push(nueva);
   }
 
-  descuentoForm.reset();
-  document.getElementById("modalDescuento").classList.remove("show");
+  cerrarModal("modalDescuento");
   listarDescuentos();
-});
+}
 
+// === Editar ===
 function editarDescuento(id) {
-  const d = descuentos.find(d => d.id === id);
+  const d = descuentos.find((x) => x.id === id);
   if (!d) return;
-  document.getElementById("descuentoId").value = d.id;
   document.getElementById("descripcionDescuento").value = d.descripcion;
   document.getElementById("porcentajeDescuento").value = d.porcentaje;
   editando = true;
@@ -100,146 +70,254 @@ function editarDescuento(id) {
   document.getElementById("modalDescuento").classList.add("show");
 }
 
+// === Eliminar ===
 function eliminarDescuento(id) {
-  if (!confirm("¿Eliminar este descuento?")) return;
-  descuentos = descuentos.filter(d => d.id !== id);
+  if (!confirm("¿Eliminar descuento?")) return;
+  descuentos = descuentos.filter((x) => x.id !== id);
   listarDescuentos();
 }
 
-function actualizarSelectDescuentos() {
-  const select = document.getElementById("descuentoSelect");
-  select.innerHTML = `<option value="">Sin descuento</option>` +
-    descuentos.map(d => `<option value="${d.id}">${d.descripcion}</option>`).join("");
+
+// === Consultar Descuento ===
+function consultarDescuento() {
+  const valor = document.getElementById("buscarDescuentoInput").value.trim().toLowerCase();
+  const d = descuentos.find(
+    (x) => x.descripcion.toLowerCase() === valor || x.id.toString() === valor
+  );
+
+  cerrarModal("modalConsultaDescuento");
+
+  if (!d) return alert("Descuento no encontrado");
+  mostrarDetalleDescuento(d);
+}
+
+// === Mostrar Detalle de Descuento ===
+function mostrarDetalleDescuento(d) {
+  const div = document.getElementById("detalleContenidoDescuento");
+  div.innerHTML = `
+    <p><strong>ID:</strong> ${d.id}</p>
+    <p><strong>Descripción:</strong> ${d.descripcion}</p>
+    <p><strong>Porcentaje:</strong> ${d.porcentaje}%</p>
+  `;
+  document.getElementById("modalDetalleDescuento").classList.add("show");
+
+  document.getElementById("btnEditarDescuento").onclick = () => {
+    cerrarModal("modalDetalleDescuento");
+    editarDescuento(d.id);
+  };
+  document.getElementById("btnEliminarDescuento").onclick = () => {
+    cerrarModal("modalDetalleDescuento");
+    eliminarDescuento(d.id);
+  };
+  document.getElementById("btnCerrarDetalleDescuento").onclick = () =>
+    cerrarModal("modalDetalleDescuento");
+}
+
+// === Eventos específicos de Descuentos ===
+function configurarEventosDescuentos() {
+  document.getElementById("btnRegistrarDesc").onclick = () =>
+    document.getElementById("modalDescuento").classList.add("show");
+
+  document.getElementById("descuentoForm").addEventListener("submit", guardarDescuento);
+  document.getElementById("cancelarDescuentoBtn").onclick = () =>
+    cerrarModal("modalDescuento");
+
+  document.getElementById("btnConsultarDesc").onclick = () =>
+    document.getElementById("modalConsultaDescuento").classList.add("show");
+
+  document.getElementById("confirmarConsultaDescuentoBtn").onclick = consultarDescuento;
+
+  document.querySelector("#modalConsultaDescuento #cancelarConsultaBtn").onclick = () =>
+    cerrarModal("modalConsultaDescuento");
 }
 
 // =====================================================
-// TIPOS DE MEMBRESÍA
+// ======== TIPOS DE MEMBRESÍA
 // =====================================================
-const tipoForm = document.getElementById("tipoForm");
-const tiposTabla = document.querySelector("#tiposMembresiaTabla tbody");
+let tiposMembresia = [
+  { id: 1, nombre: "Mensual", duracion: 30, costo: 10000, descuentoId: 1 },
+];
 
+// === Listar Tipos ===
 function listarTipos() {
-  tiposTabla.innerHTML = tipos.map(t => {
-    const desc = descuentos.find(d => d.id === t.descuentoId);
-    return `
+  const tbody = document.querySelector("#tiposMembresiaTabla tbody");
+  tbody.innerHTML = tiposMembresia
+    .map((t) => {
+      const desc = descuentos.find((d) => d.id === t.descuentoId);
+      return `
       <tr>
+        <td>${t.id}</td>
         <td>${t.nombre}</td>
-        <td>${t.duracion}</td>
         <td>$${t.costo}</td>
+        <td>${t.duracion} días</td>
         <td>${desc ? desc.descripcion : "—"}</td>
         <td>
-          <button onclick="editarTipo(${t.id})" class="btn-small btn btn-edit">Editar</button>
+          <button onclick="editarTipo(${t.id})" class="btn-small btn btn-edit">Modificar</button>
           <button onclick="eliminarTipo(${t.id})" class="btn-small btn btn-delete">Eliminar</button>
+          <button onclick="imprimirTipo(${t.id})" class="btn-small btn btn-save">Imprimir</button>
         </td>
       </tr>`;
-  }).join("");
-  actualizarSelectTipos();
+    })
+    .join("");
+  actualizarSelectDescuentos();
 }
 
-tipoForm.addEventListener("submit", e => {
+// === Guardar / Modificar ===
+function guardarTipo(e) {
   e.preventDefault();
   const nueva = {
     id: editando ? idEditando : Date.now(),
     nombre: document.getElementById("nombreTipo").value,
-    duracion: document.getElementById("duracionTipo").value,
-    costo: document.getElementById("costoTipo").value,
-    descuentoId: document.getElementById("descuentoSelect").value
+    duracion: parseInt(document.getElementById("duracionTipo").value),
+    costo: parseFloat(document.getElementById("costoTipo").value),
+    descuentoId: parseInt(document.getElementById("descuentoTipo").value) || null,
   };
 
-  if (!editando) tipos.push(nueva);
-  else {
-    const i = tipos.findIndex(t => t.id === idEditando);
-    tipos[i] = nueva;
-    editando = false;
-    idEditando = null;
+  if (editando) {
+    const i = tiposMembresia.findIndex((t) => t.id === idEditando);
+    tiposMembresia[i] = nueva;
+  } else {
+    tiposMembresia.push(nueva);
   }
 
-  tipoForm.reset();
-  document.getElementById("modalTipo").classList.remove("show");
+  cerrarModal("modalTipo");
   listarTipos();
-});
+}
 
+// === Editar ===
 function editarTipo(id) {
-  const t = tipos.find(t => t.id === id);
+  const t = tiposMembresia.find((x) => x.id === id);
   if (!t) return;
-  document.getElementById("tipoId").value = t.id;
   document.getElementById("nombreTipo").value = t.nombre;
   document.getElementById("duracionTipo").value = t.duracion;
   document.getElementById("costoTipo").value = t.costo;
-  document.getElementById("descuentoSelect").value = t.descuentoId || "";
+  document.getElementById("descuentoTipo").value = t.descuentoId || "";
   editando = true;
   idEditando = id;
   document.getElementById("modalTipo").classList.add("show");
 }
 
+// === Eliminar ===
 function eliminarTipo(id) {
-  if (!confirm("¿Eliminar este tipo de membresía?")) return;
-  tipos = tipos.filter(t => t.id !== id);
+  if (!confirm("¿Eliminar tipo de membresía?")) return;
+  tiposMembresia = tiposMembresia.filter((x) => x.id !== id);
   listarTipos();
 }
 
-function actualizarSelectTipos() {
-  const select = document.getElementById("tipoMembresia");
-  select.innerHTML = `<option value="">Seleccionar tipo</option>` +
-    tipos.map(t => `<option value="${t.id}">${t.nombre}</option>`).join("");
-}
+// === Consultar Tipo ===
+function consultarTipo() {
+  const valor = document.getElementById("buscarTipoInput").value.trim().toLowerCase();
+  const tipo = tiposMembresia.find(
+    (t) => t.nombre.toLowerCase() === valor || t.id.toString() === valor
+  );
 
-// =====================================================
-// MEMBRESÍAS
-// =====================================================
-const membresiaForm = document.getElementById("membresiaForm");
-const membresiasTabla = document.querySelector("#membresiasTabla tbody");
+  cerrarModal("modalConsultaTipo");
 
-function listarMembresias() {
-  membresiasTabla.innerHTML = membresias.map(m => {
-    const tipo = tipos.find(t => t.id === m.tipoId);
-    return `
-      <tr>
-        <td>${m.miembro}</td>
-        <td>${tipo ? tipo.nombre : "—"}</td>
-        <td>${m.inicio}</td>
-        <td>${m.fin}</td>
-        <td>
-          <button onclick="editarMembresia(${m.id})" class="btn-small btn btn-edit">Editar</button>
-          <button onclick="eliminarMembresia(${m.id})" class="btn-small btn btn-delete">Eliminar</button>
-        </td>
-      </tr>`;
-  }).join("");
-}
-
-membresiaForm.addEventListener("submit", e => {
-  e.preventDefault();
-  const nueva = {
-    id: editando ? idEditando : Date.now(),
-    miembro: document.getElementById("nombreSocio").value,
-    tipoId: parseInt(document.getElementById("tipoMembresia").value),
-    inicio: document.getElementById("fechaInicio").value,
-    fin: document.getElementById("fechaFin").value
-  };
-
-  if (!editando) membresias.push(nueva);
-  else {
-    const i = membresias.findIndex(m => m.id === idEditando);
-    membresias[i] = nueva;
-    editando = false;
-    idEditando = null;
+  if (!tipo) {
+    alert("Tipo de membresía no encontrado");
+    return;
   }
-});
 
-// ========== INICIALIZACIÓN ==========
+  mostrarDetalleTipo(tipo);
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById("descuentosTabla")) renderDescuentos();
-  if (document.getElementById("tiposMembresiaTabla")) renderTipos();
-  if (document.getElementById("membresiasTabla")) renderMembresias();
+// === Mostrar Detalle Tipo ===
+function mostrarDetalleTipo(t) {
+  const desc = descuentos.find(d => d.id === t.descuentoId);
+  const div = document.getElementById("detalleContenidoTipo");
+  div.innerHTML = `
+    <p><strong>ID:</strong> ${t.id}</p>
+    <p><strong>Nombre:</strong> ${t.nombre}</p>
+    <p><strong>Duración:</strong> ${t.duracion} días</p>
+    <p><strong>Costo:</strong> $${t.costo}</p>
+    <p><strong>Descuento:</strong> ${desc ? desc.descripcion + " (" + desc.porcentaje + "%)" : "Ninguno"}</p>
+  `;
 
-  // Listeners de formularios
-  const descuentoForm = document.getElementById("descuentoForm");
-  if (descuentoForm) descuentoForm.addEventListener("submit", guardarDescuento);
+  document.getElementById("modalDetalleTipo").classList.add("show");
 
-  const tipoForm = document.getElementById("tipoMembresiaForm");
-  if (tipoForm) tipoForm.addEventListener("submit", guardarTipo);
+  document.getElementById("btnEditarTipo").onclick = () => {
+    cerrarModal("modalDetalleTipo");
+    editarTipo(t.id);
+  };
+  document.getElementById("btnEliminarTipo").onclick = () => {
+    cerrarModal("modalDetalleTipo");
+    eliminarTipo(t.id);
+  };
+  document.getElementById("btnImprimirTipo").onclick = () => imprimirTipo(t.id);
+  document.getElementById("btnCerrarDetalleTipo").onclick = () =>
+    cerrarModal("modalDetalleTipo");
+}
 
-  const membresiaForm = document.getElementById("membresiaForm");
-  if (membresiaForm) membresiaForm.addEventListener("submit", guardarMembresia);
-});
+// === Imprimir Tipo ===
+function imprimirTipo(id) {
+  const t = tiposMembresia.find((x) => x.id === id);
+  if (!t) return alert("Tipo no encontrado");
+
+  const desc = descuentos.find((d) => d.id === t.descuentoId);
+  const costoFinal = desc
+    ? t.costo - (t.costo * desc.porcentaje) / 100
+    : t.costo;
+
+  const nuevaVentana = window.open("", "_blank");
+  nuevaVentana.document.write(`
+    <html>
+      <head>
+        <title>Tipo de Membresía: ${t.nombre}</title>
+        <style>
+          body { font-family: Arial; padding: 20px; color: #222; }
+          h1 { color: #fa3715; }
+        </style>
+      </head>
+      <body>
+        <h1>${t.nombre}</h1>
+        <p><strong>Duración:</strong> ${t.duracion} días</p>
+        <p><strong>Costo base:</strong> $${t.costo}</p>
+        <p><strong>Descuento:</strong> ${
+          desc ? desc.descripcion + " (" + desc.porcentaje + "%)" : "Ninguno"
+        }</p>
+        <p><strong>Costo final:</strong> $${costoFinal.toFixed(2)}</p>
+      </body>
+    </html>
+  `);
+  nuevaVentana.document.close();
+  nuevaVentana.print();
+}
+
+// === Actualizar select ===
+function actualizarSelectDescuentos() {
+  const select = document.getElementById("descuentoTipo");
+  select.innerHTML =
+    `<option value="">Sin descuento</option>` +
+    descuentos.map((d) => `<option value="${d.id}">${d.descripcion}</option>`).join("");
+}
+
+// === Eventos específicos de Tipos ===
+function configurarEventosTipos() {
+  document.getElementById("btnRegistrarTipo").onclick = () =>
+    document.getElementById("modalTipo").classList.add("show");
+
+  document.getElementById("tipoForm").addEventListener("submit", guardarTipo);
+
+  document.getElementById("cancelarTipoBtn").onclick = () =>
+    cerrarModal("modalTipo");
+
+  document.getElementById("btnConsultarTipo").onclick = () =>
+    document.getElementById("modalConsultaTipo").classList.add("show");
+
+  document.getElementById("confirmarConsultaTipoBtn").onclick = consultarTipo;
+
+  document.querySelector("#modalConsultaTipo #cancelarConsultaBtn").onclick = () =>
+    cerrarModal("modalConsultaTipo");
+}
+
+// =====================================================
+// FUNCIONES UTILITARIAS
+// =====================================================
+function cerrarModal(id) {
+  const modal = document.getElementById(id);
+  const form = modal.querySelector("form");
+  if (form) form.reset();
+  modal.classList.remove("show");
+  editando = false;
+  idEditando = null;
+}
